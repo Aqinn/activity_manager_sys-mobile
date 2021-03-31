@@ -65,4 +65,7 @@ dependencies {
 
     // LitePal
     implementation 'org.litepal.guolindev:core:3.2.2'
+
+    // Banner 2.0 轮播容器
+    compile 'com.youth.banner:banner:2.1.0'
 }
