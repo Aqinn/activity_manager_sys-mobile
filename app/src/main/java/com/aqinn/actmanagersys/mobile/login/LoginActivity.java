@@ -1,5 +1,6 @@
 package com.aqinn.actmanagersys.mobile.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,8 @@ import androidx.annotation.Nullable;
 import com.aqinn.actmanagersys.mobile.R;
 import com.aqinn.actmanagersys.mobile.base.BaseFragmentActivity;
 import com.aqinn.actmanagersys.mobile.base.PublicConfig;
+import com.aqinn.actmanagersys.mobile.index.IndexActivity;
+import com.aqinn.actmanagersys.mobile.register.RegisterActivity;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView2;
 
 import butterknife.BindView;
@@ -53,6 +56,10 @@ public class LoginActivity extends BaseFragmentActivity implements ILogin.View {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         mPresenter = new LoginPresenter(this);
+        if (PublicConfig.isDebug) {
+            etUsername.setText("aqinn");
+            etPassword.setText("biubiubiu");
+        }
     }
 
     @OnClick({R.id.iv_head, R.id.bt_register, R.id.bt_confirm})
@@ -62,9 +69,10 @@ public class LoginActivity extends BaseFragmentActivity implements ILogin.View {
                 // TODO 可以作为彩蛋？
                 break;
             case R.id.bt_register:
-                // TODO 跳转至注册界面
                 if (PublicConfig.isDebug)
                     Toast.makeText(this, "Test: 跳转至注册页面", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, RegisterActivity.class);
+                startActivity(intent);
                 break;
             case R.id.bt_confirm:
                 String account = etUsername.getText().toString();
@@ -76,9 +84,11 @@ public class LoginActivity extends BaseFragmentActivity implements ILogin.View {
 
     @Override
     public void loginSuccess() {
-        // TODO 跳转至首页
         if (PublicConfig.isDebug)
             Toast.makeText(this, "Test: 登录成功，跳转至首页", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, IndexActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

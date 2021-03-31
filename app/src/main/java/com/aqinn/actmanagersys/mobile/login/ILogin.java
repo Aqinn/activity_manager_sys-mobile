@@ -2,6 +2,7 @@ package com.aqinn.actmanagersys.mobile.login;
 
 /**
  * 登录功能 - MVP接口
+ *
  * @author Aqinn
  * @date 2021/3/29 11:43 AM
  */
@@ -10,6 +11,7 @@ public interface ILogin {
     interface View {
         // 登录成功
         void loginSuccess();
+
         // 登录失败
         void loginError(ErrorCode errCode);
     }
@@ -17,8 +19,10 @@ public interface ILogin {
     interface Presenter {
         // 登录
         void login(String account, String pwd);
+
         // 校验账户格式
         boolean verifyAccount(String account);
+
         // 校验密码格式
         boolean verifyPwd(String pwd);
     }
@@ -26,17 +30,24 @@ public interface ILogin {
     interface Model {
         // 向后台发起校验
         void login(String account, String pwd, Callback callback);
-        interface Callback{
+
+        interface Callback {
             void onSuccess();
+
             void onError(ErrorCode errCode);
         }
     }
 
     // 登录失败状态码
     enum ErrorCode {
-        NOT_FOUND_USER,
-        WRONG_PWD,
-        WRONG_FORMAT
+        NOT_FOUND_USER("账号不存在"),
+        WRONG_PWD("密码错误"),
+        WRONG_FORMAT("账号或密码格式错误");
+        public String desc;
+
+        ErrorCode(String desc) {
+            this.desc = desc;
+        }
     }
 
 }
