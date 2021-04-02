@@ -26,7 +26,7 @@
     <string name="error_fragment_detail">暂时不知道是啥问题呢</string>
     <string name="act">活动</string>
     <string name="checkin">签到</string>
-    <string name="personal">个人</string>
+    <string name="personal">我</string>
     <string name="err_page">错误页面</string>
     <string name="act_center">活动中心</string>
     <string name="act_name">活动名称</string>
@@ -39,4 +39,15 @@
     <string name="act_end">已结束</string>
     <string name="act_center_tab_1_title">创建的活动</string>
     <string name="act_center_tab_2_title">参加的活动</string>
+    <string name="attend_time_hint">签到时间</string>
+    <string name="act_name_hint">活动名称</string>
+    <string name="attend_type_hint">签到方式</string>
+    <string name="attend_count_hint">签到人数</string>
+    <string name="attend_ing">进行中</string>
+    <string name="attend_not_begin">未开始</string>
+    <string name="attend_end">已结束</string>
+    <string name="attend_center">签到中心</string>
+    <string name="personal_name_hint">用户昵称</string>
+    <string name="personal_contact_hint">联系方式</string>
+    <string name="personal_intro_hint">个人简介</string>
 </resources>

@@ -39,6 +39,10 @@ public class ActShow extends LitePalSupport {
     public ActShow() {
     }
 
+    public ActShow(String name) {
+        this.name = name;
+    }
+
     // 构建一个完全的活动信息展示类
     public ActShow(Long ownerId, Long actId, Long code, Long pwd, Long creatorId, String creatorAccount, String name, String beginTime, String endTime, String location, String intro, Integer status) {
         this.ownerId = ownerId;

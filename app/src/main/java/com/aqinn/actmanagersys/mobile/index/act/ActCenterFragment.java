@@ -3,21 +3,18 @@ package com.aqinn.actmanagersys.mobile.index.act;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.aqinn.actmanagersys.mobile.R;
 import com.aqinn.actmanagersys.mobile.base.BaseFragment;
 import com.aqinn.actmanagersys.mobile.index.act.createact.CreateActFragment;
 import com.aqinn.actmanagersys.mobile.index.act.joinact.JoinActFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.arch.QMUIFragmentPagerAdapter;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
@@ -50,18 +47,19 @@ public class ActCenterFragment extends BaseFragment implements IActCenter.View {
     QMUITabSegment tabSegment;
     @BindView(R.id.viewPager)
     ViewPager viewPager;
+    @BindView(R.id.fbt)
+    FloatingActionButton fbt;
 
     private IActCenter.Presenter mPresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     protected View onCreateView() {
-        View root = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_act, null);
+        View root = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_act_center, null);
         ButterKnife.bind(this, root);
         initView();
         return root;
@@ -86,6 +84,12 @@ public class ActCenterFragment extends BaseFragment implements IActCenter.View {
         tabSegment.addTab(builder.setText(getString(R.string.act_center_tab_2_title)).build(getContext()));
         tabSegment.setupWithViewPager(viewPager, false);
         tabSegment.setMode(QMUITabSegment.MODE_FIXED);
+        fbt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "点击了浮动按钮", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private static class MyPageAdapter extends QMUIFragmentPagerAdapter {

@@ -13,9 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aqinn.actmanagersys.mobile.R;
 import com.aqinn.actmanagersys.mobile.base.BaseFragment;
+import com.aqinn.actmanagersys.mobile.base.OnRecyclerItemClickListener;
 import com.aqinn.actmanagersys.mobile.base.PublicConfig;
 import com.aqinn.actmanagersys.mobile.index.act.createact.CreateActFragment;
 import com.aqinn.actmanagersys.mobile.model.ActShow;
+import com.qmuiteam.qmui.skin.QMUISkinManager;
+import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.qmuiteam.qmui.widget.popup.QMUIPopups;
+import com.qmuiteam.qmui.widget.popup.QMUIQuickAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +41,8 @@ public class JoinActFragment extends BaseFragment {
     @BindView(R.id.rv_join)
     RecyclerView rvJoin;
 
+    private List<ActShow> mData;
+
     @Override
     protected View onCreateView() {
         View root = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_join_act, null);
@@ -47,16 +54,53 @@ public class JoinActFragment extends BaseFragment {
     private void initView() {
         // 测试用，填充测试数据
         if (PublicConfig.isDebug) {
-            List<String> testData = new ArrayList<>();
-            testData.add("参加活动的阿巴阿巴");
-            testData.add("参加活动的古卡古卡");
-            testData.add("参加活动的唔西迪西");
-            testData.add("参加活动的玛卡巴卡");
-            CreateActFragment.MyAdapter adapter = new CreateActFragment.MyAdapter(getActivity(), testData);
+            mData = new ArrayList<>();
+            mData.add(new ActShow("参加活动的阿巴阿巴"));
+            mData.add(new ActShow("参加活动的古卡古卡"));
+            mData.add(new ActShow("参加活动的唔西迪西"));
+            mData.add(new ActShow("参加活动的玛卡巴卡"));
+            MyAdapter adapter = new MyAdapter(getActivity(), mData);
             rvJoin.setAdapter(adapter);
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             layoutManager.setOrientation(RecyclerView.VERTICAL);
             rvJoin.setLayoutManager(layoutManager);
+            rvJoin.addOnItemTouchListener(new OnRecyclerItemClickListener(rvJoin) {
+                @Override
+                public void onItemClick(RecyclerView.ViewHolder vh) {
+                    final ActShow item = mData.get(vh.getAdapterPosition());
+                    QMUIQuickAction qqa = QMUIPopups.quickAction(getContext(),
+                            QMUIDisplayHelper.dp2px(getContext(), 56),
+                            QMUIDisplayHelper.dp2px(getContext(), 56))
+                            .shadow(true)
+                            .skinManager(QMUISkinManager.defaultInstance(getContext()))
+                            .edgeProtection(QMUIDisplayHelper.dp2px(getContext(), 20));
+                    qqa.addAction(new QMUIQuickAction.Action().text("查看详情").onClick(
+                            new QMUIQuickAction.OnClickListener() {
+                                @Override
+                                public void onClick(QMUIQuickAction quickAction, QMUIQuickAction.Action action, int position) {
+                                    quickAction.dismiss();
+                                }
+                            }
+                    ));
+                    qqa.addAction(new QMUIQuickAction.Action().text("活动代码").onClick(
+                            new QMUIQuickAction.OnClickListener() {
+                                @Override
+                                public void onClick(QMUIQuickAction quickAction, QMUIQuickAction.Action action, int position) {
+                                    quickAction.dismiss();
+                                }
+                            }
+                    ));
+                    qqa.addAction(new QMUIQuickAction.Action().text("退出活动").onClick(
+                            new QMUIQuickAction.OnClickListener() {
+                                @Override
+                                public void onClick(QMUIQuickAction quickAction, QMUIQuickAction.Action action, int position) {
+                                    quickAction.dismiss();
+                                }
+                            }
+                    ));
+                    qqa.show(vh.itemView);
+                }
+            });
         }
     }
 
@@ -84,9 +128,9 @@ public class JoinActFragment extends BaseFragment {
     public static class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         private Context mContext;
-        private List<String> mData;
+        private List<ActShow> mData;
 
-        public MyAdapter(Context context, List<String> testData) {
+        public MyAdapter(Context context, List<ActShow> testData) {
             mContext = context;
             mData = testData;
         }
@@ -100,9 +144,9 @@ public class JoinActFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            holder.tvName.setText(mData.get(position));
-            holder.tvTime.setText(mData.get(position));
-            holder.tvLoc.setText(mData.get(position));
+            holder.tvName.setText(mData.get(position).getName());
+            holder.tvTime.setText(mData.get(position).getName());
+            holder.tvLoc.setText(mData.get(position).getName());
             ActShow item = new ActShow();
             item.setStatus(new Random().nextInt(3) + 1);
             String statusText = "";
