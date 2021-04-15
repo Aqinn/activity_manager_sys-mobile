@@ -2,6 +2,8 @@ package com.aqinn.actmanagersys.mobile.model;
 
 import org.litepal.crud.LitePalSupport;
 
+import java.util.Random;
+
 /**
  * 活动信息展示类 - 主要用于数据展示以及数据缓存
  *
@@ -23,15 +25,17 @@ public class ActShow extends LitePalSupport {
 
     private String creatorAccount;
 
+    private String creatorName;
+
     private String name;
 
-    private String beginTime;
+    private String startTime;
 
     private String endTime;
 
     private String location;
 
-    private String intro;
+    private String desc;
 
     // 活动状态 1: "未开始" 2: "进行中" 3: "已结束"
     private Integer status;
@@ -41,21 +45,31 @@ public class ActShow extends LitePalSupport {
 
     public ActShow(String name) {
         this.name = name;
+        this.creatorName = name;
+        this.startTime = name;
+        this.endTime = name;
+        this.location = name;
+        this.creatorAccount = name;
+        this.desc = name;
+        this.status = new Random().nextInt(3);
     }
 
     // 构建一个完全的活动信息展示类
-    public ActShow(Long ownerId, Long actId, Long code, Long pwd, Long creatorId, String creatorAccount, String name, String beginTime, String endTime, String location, String intro, Integer status) {
+
+
+    public ActShow(Long ownerId, Long actId, Long code, Long pwd, Long creatorId, String creatorAccount, String creatorName, String name, String startTime, String endTime, String location, String desc, Integer status) {
         this.ownerId = ownerId;
         this.actId = actId;
         this.code = code;
         this.pwd = pwd;
         this.creatorId = creatorId;
         this.creatorAccount = creatorAccount;
+        this.creatorName = creatorName;
         this.name = name;
-        this.beginTime = beginTime;
+        this.startTime = startTime;
         this.endTime = endTime;
         this.location = location;
-        this.intro = intro;
+        this.desc = desc;
         this.status = status;
     }
 
@@ -107,6 +121,14 @@ public class ActShow extends LitePalSupport {
         this.creatorAccount = creatorAccount;
     }
 
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
+    }
+
     public String getName() {
         return name;
     }
@@ -115,12 +137,12 @@ public class ActShow extends LitePalSupport {
         this.name = name;
     }
 
-    public String getBeginTime() {
-        return beginTime;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setBeginTime(String beginTime) {
-        this.beginTime = beginTime;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
     public String getEndTime() {
@@ -139,12 +161,12 @@ public class ActShow extends LitePalSupport {
         this.location = location;
     }
 
-    public String getIntro() {
-        return intro;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setIntro(String intro) {
-        this.intro = intro;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public Integer getStatus() {
@@ -153,5 +175,24 @@ public class ActShow extends LitePalSupport {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "ActShow{" +
+                "ownerId=" + ownerId +
+                ", actId=" + actId +
+                ", code=" + code +
+                ", pwd=" + pwd +
+                ", creatorId=" + creatorId +
+                ", creatorAccount='" + creatorAccount + '\'' +
+                ", creatorName='" + creatorName + '\'' +
+                ", name='" + name + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", location='" + location + '\'' +
+                ", desc='" + desc + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

@@ -35,11 +35,14 @@
 
 <!--        </LinearLayout>-->
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.aqinn.actmanagersys.mobile.myview.RecyclerViewEmptySupport
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+        <include
+            android:id="@+id/empty_view"
+            layout="@layout/empty_view_attend"/>
 
     </LinearLayout>
 

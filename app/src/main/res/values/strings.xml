@@ -50,4 +50,26 @@
     <string name="personal_name_hint">用户昵称</string>
     <string name="personal_contact_hint">联系方式</string>
     <string name="personal_intro_hint">个人简介</string>
+    <string name="act_detail">活动详情</string>
+    <string name="tips_face_collect_ing_1">正在进行人脸采集</string>
+    <string name="tips_face_collect_ing_2">就是这样！保持！</string>
+    <string name="tips_face_collect_ing_3">快完成了！</string>
+    <string name="tips_face_collect_finish">人脸采集已完成</string>
+    <string name="tips_face_collect">请保持面部在屏幕中心圆框区域内 3 秒</string>
+    <string name="tips_self_attend_ing">正在进行自助签到...</string>
+    <string name="tips_self_attend">请将摄像头对准面部</string>
+    <string name="act_detail_name_hint">活动名称</string>
+    <string name="act_detail_creator_text">活动创建者</string>
+    <string name="act_detail_creator_hint">活动创建者账户</string>
+    <string name="act_detail_act_start_time_text">活动开始时间</string>
+    <string name="act_detail_start_time_hint">活动开始时间</string>
+    <string name="act_detail_end_time_text">活动结束时间</string>
+    <string name="act_detail_end_time_hint">活动结束时间</string>
+    <string name="act_detail_loc_text">活动地点</string>
+    <string name="act_detail_loc_hint">活动地点</string>
+    <string name="act_detail_intro_text">活动简介</string>
+    <string name="act_detail_intro_hint">活动简介</string>
+    <string name="empty_create_act">暂时没有创建活动</string>
+    <string name="empty_join_act">暂时没有参加活动</string>
+    <string name="empty_attend">暂时没有签到信息</string>
 </resources>

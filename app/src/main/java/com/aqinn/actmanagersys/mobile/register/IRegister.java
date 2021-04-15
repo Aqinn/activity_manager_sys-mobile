@@ -1,5 +1,6 @@
 package com.aqinn.actmanagersys.mobile.register;
 
+import com.aqinn.actmanagersys.mobile.base.BaseNetworkService;
 import com.aqinn.actmanagersys.mobile.model.User;
 
 /**
@@ -13,6 +14,7 @@ public interface IRegister {
     interface View {
         // 注册成功
         void registerSuccess();
+
         // 注册失败
         void registerError(ErrorCode errorCode);
     }
@@ -20,16 +22,19 @@ public interface IRegister {
     interface Presenter {
         /**
          * 注册账号
+         *
          * @param user 包含一个用户的所有信息
          */
         void register(User user);
     }
 
-    interface Model {
+    interface Model extends BaseNetworkService {
         // 向后台发起校验
         void register(User user, Callback callback);
-        interface Callback{
+
+        interface Callback {
             void onSuccess();
+
             void onError(ErrorCode errCode);
         }
     }
@@ -37,8 +42,11 @@ public interface IRegister {
     // 注册失败错误码
     enum ErrorCode {
         ACCOUNT_REPEAT("账号重复"),
-        UNKNOWN_ERROR("未知错误");
+        WRONG_FORMAT("账号或密码格式错误"),
+        UNKNOWN_ERROR("未知错误"),
+        UNKNOWN_NETWORK_ERROR("未知网络错误");
         public String desc;
+
         ErrorCode(String desc) {
             this.desc = desc;
         }

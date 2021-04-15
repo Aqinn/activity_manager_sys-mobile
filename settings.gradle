@@ -1,2 +1,4 @@
+include ':facerecognize'
 include ':app'
+project(':facerecognize').projectDir = new File(rootDir, 'facerecognize/')
 rootProject.name = "actmanagersysmobile"

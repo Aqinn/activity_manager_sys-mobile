@@ -1,5 +1,6 @@
 package com.aqinn.actmanagersys.mobile.index.personal;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,10 @@ import android.widget.Toast;
 import com.aqinn.actmanagersys.mobile.R;
 import com.aqinn.actmanagersys.mobile.base.BaseFragment;
 import com.aqinn.actmanagersys.mobile.base.PublicConfig;
+import com.aqinn.actmanagersys.mobile.facecollect.FaceCollectActivity;
+import com.aqinn.actmanagersys.mobile.login.LoginActivity;
 import com.aqinn.actmanagersys.mobile.model.User;
+import com.aqinn.actmanagersys.mobile.utils.SPUtil;
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView2;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
@@ -103,21 +107,23 @@ public class PersonalFragment extends BaseFragment {
                         switch (position) {
                             case 0:
                                 // TODO 编辑信息
-                                if (PublicConfig.isDebug) {
-                                    Toast.makeText(getActivity(), "编辑信息完成", Toast.LENGTH_SHORT).show();
-                                }
+                                if (PublicConfig.isDebug)
+                                    Toast.makeText(getActivity(), "Test: 编辑信息", Toast.LENGTH_SHORT).show();
                                 break;
                             case 1:
                                 // TODO 人脸采集
-                                if (PublicConfig.isDebug) {
-                                    Toast.makeText(getActivity(), "人脸采集完成", Toast.LENGTH_SHORT).show();
-                                }
+                                if (PublicConfig.isDebug)
+                                    Toast.makeText(getActivity(), "Test: 人脸采集", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getActivity(), FaceCollectActivity.class);
+                                startActivity(intent);
                                 break;
                             case 2:
-                                // TODO 退出登录
-                                if (PublicConfig.isDebug) {
-                                    Toast.makeText(getActivity(), "退出登录完成", Toast.LENGTH_SHORT).show();
-                                }
+                                if (PublicConfig.isDebug)
+                                    Toast.makeText(getActivity(), "Test: 退出登录", Toast.LENGTH_SHORT).show();
+                                Intent intentToLogin = new Intent(getActivity(), LoginActivity.class);
+                                startActivity(intentToLogin);
+                                getActivity().finish();
+                                SPUtil.loginOut(getActivity());
                                 break;
                             default:
                                 break;

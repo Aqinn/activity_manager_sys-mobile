@@ -29,6 +29,7 @@ import butterknife.OnClick;
 
 /**
  * 注册功能 - View
+ *
  * @author Aqinn
  * @date 2021/3/29 4:55 PM
  */
@@ -82,8 +83,14 @@ public class RegisterActivity extends BaseFragmentActivity implements IRegister.
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_register:
-                // TODO 这里的User不能为空User
                 User user = new User();
+                user.setAccount(etAccount.getText().toString());
+                user.setPwd(etPassword.getText().toString());
+                user.setName(etName.getText().toString());
+                user.setContactType(1);  // TODO 这里暂时全部都设置为微信
+                user.setContact(etContact.getText().toString());
+                user.setSex(rbMan.isChecked() ? 1 : 0);
+                user.setIntro(etIntro.getText().toString());
                 mPresenter.register(user);
                 break;
         }

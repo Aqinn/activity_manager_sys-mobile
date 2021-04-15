@@ -12,4 +12,20 @@ public class PublicConfig {
      */
     public static final boolean isDebug = true;
 
+    /**
+     * 未知用户ID
+     * 代表着未登录
+     */
+    public static final Long UNKNOWN_USER_ID = -1L;
+
+    /**
+     * 请求的根URL
+     */
+    public static final String BASE_URL = "http://121.5.162.173:8080/";
+
+    /**
+     * 临时的TAG
+     */
+    public static final String TEMP_TAG = "temp_tag";
+
 }

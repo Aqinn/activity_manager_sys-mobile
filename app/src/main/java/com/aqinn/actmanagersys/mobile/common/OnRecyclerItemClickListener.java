@@ -1,4 +1,4 @@
-package com.aqinn.actmanagersys.mobile.base;
+package com.aqinn.actmanagersys.mobile.common;
 
 import android.view.GestureDetector;
 import android.view.MotionEvent;

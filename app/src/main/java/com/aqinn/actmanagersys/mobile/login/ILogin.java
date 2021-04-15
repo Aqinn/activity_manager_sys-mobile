@@ -1,5 +1,7 @@
 package com.aqinn.actmanagersys.mobile.login;
 
+import com.aqinn.actmanagersys.mobile.base.BaseNetworkService;
+
 /**
  * 登录功能 - MVP接口
  *
@@ -18,7 +20,7 @@ public interface ILogin {
 
     interface Presenter {
         // 登录
-        void login(String account, String pwd);
+        void login(String account, String pwd, boolean isRemember);
 
         // 校验账户格式
         boolean verifyAccount(String account);
@@ -27,12 +29,12 @@ public interface ILogin {
         boolean verifyPwd(String pwd);
     }
 
-    interface Model {
+    interface Model extends BaseNetworkService {
         // 向后台发起校验
         void login(String account, String pwd, Callback callback);
 
         interface Callback {
-            void onSuccess();
+            void onSuccess(Long id, String name, String token);
 
             void onError(ErrorCode errCode);
         }
@@ -42,7 +44,9 @@ public interface ILogin {
     enum ErrorCode {
         NOT_FOUND_USER("账号不存在"),
         WRONG_PWD("密码错误"),
-        WRONG_FORMAT("账号或密码格式错误");
+        WRONG_FORMAT("账号或密码格式错误"),
+        UNKNOWN_RESPONSE_ERROR("未知响应错误"),
+        UNKNOWN_NETWORK_ERROR("未知网络错误");
         public String desc;
 
         ErrorCode(String desc) {
