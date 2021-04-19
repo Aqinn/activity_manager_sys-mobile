@@ -23,6 +23,7 @@ import com.qmuiteam.qmui.recyclerView.QMUIRVDraggableScrollBar;
 import com.qmuiteam.qmui.skin.QMUISkinManager;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
+import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.popup.QMUIPopup;
@@ -95,12 +96,12 @@ public class ActCardPresenter implements IActCard.Presenter {
         mPullRefreshLayout.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
             @Override
             public void onMoveTarget(int offset) {
-                Log.d(TAG, "onMoveTarget: offset => " + offset);
+
             }
 
             @Override
             public void onMoveRefreshView(int offset) {
-                Log.d(TAG, "onMoveRefreshView: offset => " + offset);
+
             }
 
             @Override
@@ -139,7 +140,7 @@ public class ActCardPresenter implements IActCard.Presenter {
 
     // 创建Section布局的适配器
     private QMUIStickySectionAdapter<SectionHeader_Act, SectionItem_Attend, QMUIStickySectionAdapter.ViewHolder> createAdapter() {
-        mAdapter = new ActCardSectionAdapter(mModel.getActList(), mModel.getActAttendMap());
+        mAdapter = new ActListWithDecorationSectionAdapter(mModel.getActList(), mModel.getActAttendMap());
         mAdapter.setCallback(new QMUIStickySectionAdapter.Callback<SectionHeader_Act, SectionItem_Attend>() {
             /**
              * 尝试加载更多的Attend
@@ -176,16 +177,17 @@ public class ActCardPresenter implements IActCard.Presenter {
 
             @Override
             public boolean onItemLongClick(QMUIStickySectionAdapter.ViewHolder holder, int position) {
-                if (PublicConfig.isDebug)
-                    Toast.makeText(mFragment.getContext(), "Test: \nlong click item " + position + "\n"
-                            + "mAdapter.getItemIndex(position)" + mAdapter.getItemIndex(position) + "\n"
-                            + "mAdapter.getSectionIndex(position)" + mAdapter.getSectionIndex(position) + "\n"
-                            + "mAdapter.getItemViewType(position)" + mAdapter.getItemViewType(position) + "\n", Toast.LENGTH_SHORT).show();
+//                if (PublicConfig.isDebug)
+//                    Toast.makeText(mFragment.getContext(), "Test: \nlong click item " + position + "\n"
+//                            + "mAdapter.getItemIndex(position)" + mAdapter.getItemIndex(position) + "\n"
+//                            + "mAdapter.getSectionIndex(position)" + mAdapter.getSectionIndex(position) + "\n"
+//                            + "mAdapter.getItemViewType(position)" + mAdapter.getItemViewType(position) + "\n", Toast.LENGTH_SHORT).show();
                 // 如果是header就附加一个菜单
                 if (mAdapter.getItemViewType(position) == QMUIStickySectionAdapter.ITEM_TYPE_SECTION_HEADER) {
-                    if (PublicConfig.isDebug) {
-                        Toast.makeText(mFragment.getContext(), "Test: 是header", Toast.LENGTH_SHORT).show();
-                    }
+//                    if (PublicConfig.isDebug) {
+//                        Toast.makeText(mFragment.getContext(), "Test: 是header", Toast.LENGTH_SHORT).show();
+//                    }
+                    showSimpleBottomSheetGrid();
                 }
 //                ActCardSectionAdapter.SectionHeaderViewHolder realHolder = (ActCardSectionAdapter.SectionHeaderViewHolder) holder;
 //                QMUISection<SectionHeader_Act, SectionItem_Attend> section = mAdapter.getSection(position);
@@ -209,47 +211,54 @@ public class ActCardPresenter implements IActCard.Presenter {
         };
     }
 
-    // 底部弹出的Grid菜单
-//    private void showSimpleBottomSheetGrid() {
-//        final int TAG_SHARE_WECHAT_FRIEND = 0;
-//        final int TAG_SHARE_WECHAT_MOMENT = 1;
-//        final int TAG_SHARE_WEIBO = 2;
-//        final int TAG_SHARE_CHAT = 3;
-//        final int TAG_SHARE_LOCAL = 4;
-//        QMUIBottomSheet.BottomGridSheetBuilder builder = new QMUIBottomSheet.BottomGridSheetBuilder(getActivity());
-//        builder.addItem(R.mipmap.icon_more_operation_share_friend, "分享到微信", TAG_SHARE_WECHAT_FRIEND, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
-//                .addItem(R.mipmap.icon_more_operation_share_moment, "分享到朋友圈", TAG_SHARE_WECHAT_MOMENT, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
-//                .addItem(R.mipmap.icon_more_operation_share_weibo, "分享到微博", TAG_SHARE_WEIBO, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
-//                .addItem(R.mipmap.icon_more_operation_share_chat, "分享到私信", TAG_SHARE_CHAT, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
-//                .addItem(R.mipmap.icon_more_operation_save, "保存到本地", TAG_SHARE_LOCAL, QMUIBottomSheet.BottomGridSheetBuilder.SECOND_LINE)
-//                .setAddCancelBtn(true)
-//                .setSkinManager(QMUISkinManager.defaultInstance(getContext()))
-//                .setOnSheetItemClickListener(new QMUIBottomSheet.BottomGridSheetBuilder.OnSheetItemClickListener() {
-//                    @Override
-//                    public void onClick(QMUIBottomSheet dialog, View itemView) {
-//                        dialog.dismiss();
-//                        int tag = (int) itemView.getTag();
-//                        switch (tag) {
-//                            case TAG_SHARE_WECHAT_FRIEND:
-//                                Toast.makeText(getActivity(), "分享到微信", Toast.LENGTH_SHORT).show();
-//                                break;
-//                            case TAG_SHARE_WECHAT_MOMENT:
-//                                Toast.makeText(getActivity(), "分享到朋友圈", Toast.LENGTH_SHORT).show();
-//                                break;
-//                            case TAG_SHARE_WEIBO:
-//                                Toast.makeText(getActivity(), "分享到微博", Toast.LENGTH_SHORT).show();
-//                                break;
-//                            case TAG_SHARE_CHAT:
-//                                Toast.makeText(getActivity(), "分享到私信", Toast.LENGTH_SHORT).show();
-//                                break;
-//                            case TAG_SHARE_LOCAL:
-//                                Toast.makeText(getActivity(), "保存到本地", Toast.LENGTH_SHORT).show();
-//                                break;
-//                        }
-//                    }
-//                }).build().show();
-//
-//
-//    }
+    /**
+     * 底部弹出的Grid菜单
+     */
+    private void showSimpleBottomSheetGrid() {
+        final int TAG_SHARE_WECHAT_FRIEND = 0;
+        final int TAG_SHARE_WECHAT_MOMENT = 1;
+        final int TAG_SHARE_WEIBO = 2;
+        final int TAG_SHARE_CHAT = 3;
+        final int TAG_SHARE_LOCAL = 4;
+        QMUIBottomSheet.BottomGridSheetBuilder builder = new QMUIBottomSheet.BottomGridSheetBuilder(mFragment.getActivity());
+        builder.addItem(R.mipmap.icon_act_detail_small, "查看详情", TAG_SHARE_WECHAT_FRIEND, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.mipmap.icon_update_act_small, "编辑活动", TAG_SHARE_WECHAT_MOMENT, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.mipmap.icon_act_code_small, "活动代码", TAG_SHARE_WEIBO, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.mipmap.icon_create_attend_small, "创建签到", TAG_SHARE_CHAT, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.mipmap.icon_delete_act_small, "删除活动", TAG_SHARE_LOCAL, QMUIBottomSheet.BottomGridSheetBuilder.SECOND_LINE)
+                .setAddCancelBtn(true)
+                .setSkinManager(QMUISkinManager.defaultInstance(mFragment.getContext()))
+                .setOnSheetItemClickListener(new QMUIBottomSheet.BottomGridSheetBuilder.OnSheetItemClickListener() {
+                    @Override
+                    public void onClick(QMUIBottomSheet dialog, View itemView) {
+                        dialog.dismiss();
+                        int tag = (int) itemView.getTag();
+                        switch (tag) {
+                            case TAG_SHARE_WECHAT_FRIEND:
+                                if (PublicConfig.isDebug)
+                                    Toast.makeText(mFragment.getActivity(), "查看详情", Toast.LENGTH_SHORT).show();
+                                break;
+                            case TAG_SHARE_WECHAT_MOMENT:
+                                if (PublicConfig.isDebug)
+                                    Toast.makeText(mFragment.getActivity(), "编辑活动", Toast.LENGTH_SHORT).show();
+                                break;
+                            case TAG_SHARE_WEIBO:
+                                if (PublicConfig.isDebug)
+                                    Toast.makeText(mFragment.getActivity(), "活动代码", Toast.LENGTH_SHORT).show();
+                                break;
+                            case TAG_SHARE_CHAT:
+                                if (PublicConfig.isDebug)
+                                    Toast.makeText(mFragment.getActivity(), "创建签到", Toast.LENGTH_SHORT).show();
+                                break;
+                            case TAG_SHARE_LOCAL:
+                                if (PublicConfig.isDebug)
+                                    Toast.makeText(mFragment.getActivity(), "删除活动", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    }
+                }).build().show();
+
+
+    }
 
 }
