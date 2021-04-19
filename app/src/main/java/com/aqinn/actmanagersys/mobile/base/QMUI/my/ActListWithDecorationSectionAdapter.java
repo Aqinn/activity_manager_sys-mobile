@@ -54,11 +54,8 @@ public class ActListWithDecorationSectionAdapter extends ActCardSectionAdapter {
     public static final int ITEM_TYPE_SECTION_TIP_START = 3;
     public static final int ITEM_TYPE_SECTION_TIP_END = 4;
 
-    private BaseFragment mFragment;
-
-    public ActListWithDecorationSectionAdapter(List<ActShow> actList, Map<ActShow, List<AttendShow>> actAttendMap, BaseFragment mFragment) {
+    public ActListWithDecorationSectionAdapter(List<ActShow> actList, Map<ActShow, List<AttendShow>> actAttendMap) {
         super(actList, actAttendMap);
-        this.mFragment = mFragment;
     }
 
     @NonNull

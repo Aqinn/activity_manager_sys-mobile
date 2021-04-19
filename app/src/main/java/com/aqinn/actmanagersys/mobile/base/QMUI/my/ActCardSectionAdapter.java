@@ -185,11 +185,11 @@ public class ActCardSectionAdapter extends QMUIDefaultStickySectionAdapter<Secti
             attend.setName(attend.getName() + ", 这是一个null");
         }
         realHolder.tvType.setText(ParseUtil.getAttendType(attend.getAttendType()));
-        realHolder.tvCount.setText(BaseApplication.getContext().getString(R.string.should_attend) + "/"
-                + BaseApplication.getContext().getString(R.string.have_attend) + "/"
-                + BaseApplication.getContext().getString(R.string.have_not_attend) + "/"
-                + attend.getShouldAttendCount() + "/"
-                + attend.getHaveAttendCount() + "/"
+        realHolder.tvCount.setText(BaseApplication.getContext().getString(R.string.should_attend) + ":"
+                + attend.getShouldAttendCount() + "    "
+                + BaseApplication.getContext().getString(R.string.have_attend) + ":"
+                + attend.getHaveAttendCount() + "    "
+                + BaseApplication.getContext().getString(R.string.have_not_attend) + ":"
                 + (attend.getShouldAttendCount() - attend.getHaveAttendCount()));
         String status = mMap.get(new Random().nextInt(3));
         realHolder.tvStatus.setText(status);

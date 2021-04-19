@@ -78,19 +78,19 @@ public class ActCardPresenter implements IActCard.Presenter {
         mTopBar = topBar;
         mPullRefreshLayout = pullRefreshLayout;
         mSectionLayout = sectionLayout;
-        initTopBar(mTopBar);
-        initRefreshLayout(mPullRefreshLayout);
-        initStickyLayout(mSectionLayout);
+        initTopBar();
+        initRefreshLayout();
+        initStickyLayout();
         initData();
     }
 
     // 初始化TopBar
-    private void initTopBar(QMUITopBarLayout mTopBar) {
+    private void initTopBar() {
         mTopBar.setVisibility(View.GONE);
     }
 
     // 初始化刷新布局
-    private void initRefreshLayout(QMUIPullRefreshLayout mPullRefreshLayout) {
+    private void initRefreshLayout() {
         mPullRefreshLayout.setRefreshOffsetCalculator(new QMUICenterGravityRefreshOffsetCalculator());
         mPullRefreshLayout.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
             @Override
@@ -116,10 +116,11 @@ public class ActCardPresenter implements IActCard.Presenter {
         });
 //        mPullRefreshLayout..startScroll(hOffset, vOffset, 0, -vOffset, scrollDuration(mBottomPullAction, vOffset));
 //        mPullRefreshLayout.postInvalidateOnAnimation();
+
     }
 
     // 初始化Section列表布局
-    private void initStickyLayout(QMUIStickySectionLayout mSectionLayout) {
+    private void initStickyLayout() {
         mLayoutManager = createLayoutManager();
         mSectionLayout.setLayoutManager(mLayoutManager);
 //        QMUIRVDraggableScrollBar scrollBar = new QMUIRVDraggableScrollBar(0, 0, 0);
@@ -138,7 +139,7 @@ public class ActCardPresenter implements IActCard.Presenter {
 
     // 创建Section布局的适配器
     private QMUIStickySectionAdapter<SectionHeader_Act, SectionItem_Attend, QMUIStickySectionAdapter.ViewHolder> createAdapter() {
-        mAdapter = new ActListWithDecorationSectionAdapter(mModel.getActList(), mModel.getActAttendMap(), mFragment);
+        mAdapter = new ActCardSectionAdapter(mModel.getActList(), mModel.getActAttendMap());
         mAdapter.setCallback(new QMUIStickySectionAdapter.Callback<SectionHeader_Act, SectionItem_Attend>() {
             /**
              * 尝试加载更多的Attend

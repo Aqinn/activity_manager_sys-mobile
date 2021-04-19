@@ -35,21 +35,20 @@
             <com.qmuiteam.qmui.widget.section.QMUIStickySectionLayout
                 android:id="@+id/section_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                app:qmui_is_target="true"/>
+
+            <com.qmuiteam.qmui.widget.pullLayout.QMUIPullLoadMoreView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:qmui_action_view_init_offset="0dp"
+                app:qmui_pull_edge="bottom"
+                app:qmui_target_view_trigger_offset="wrap"
+                app:qmui_pull_rate="0.45"
+                app:qmui_can_over_pull="true"
+                app:qmui_need_receive_fling_from_target_view="true"/>
 
         </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
-
-<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:id="@+id/fbt"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginEnd="50dp"-->
-<!--            android:layout_marginBottom="50dp"-->
-<!--            android:src="@drawable/add"-->
-<!--            app:backgroundTint="@color/white"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:maxImageSize="65dp" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

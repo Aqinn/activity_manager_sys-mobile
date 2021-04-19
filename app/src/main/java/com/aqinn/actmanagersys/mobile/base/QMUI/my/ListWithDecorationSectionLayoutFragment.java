@@ -45,7 +45,7 @@ public class ListWithDecorationSectionLayoutFragment extends BaseSectionLayoutFr
         List<ActShow> actList = new ArrayList<>();
         Map<ActShow, List<AttendShow>> actAttendMap = new HashMap<>();
         prepareData(actList, actAttendMap);
-        mAdapter = new ActListWithDecorationSectionAdapter(actList, actAttendMap, this);
+        mAdapter = new ActListWithDecorationSectionAdapter(actList, actAttendMap);
         List<QMUISection<SectionHeader_Act, SectionItem_Attend>> data = new ArrayList<>();
         wrapData(actList, actAttendMap, data);
         mAdapter.setData(data);
