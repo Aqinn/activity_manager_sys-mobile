@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="130dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/iv_line_up"
@@ -81,6 +81,7 @@
             android:id="@+id/tv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
             android:text="@string/attend_not_begin"
             android:textSize="@dimen/status_text_size"
@@ -100,5 +101,6 @@
         android:hint="@string/attend_time_hint"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cl_attend_info" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

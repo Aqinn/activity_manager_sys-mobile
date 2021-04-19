@@ -41,6 +41,19 @@ public class ActShow extends LitePalSupport {
     private Integer status;
 
     public ActShow() {
+        this.ownerId = 0L;
+        this.actId = 0L;
+        this.code = 0L;
+        this.pwd = 0L;
+        this.creatorId = 0L;
+        this.creatorAccount = "creatorAccount";
+        this.creatorName = "creatorName";
+        this.name = "测试活动名称";
+        this.startTime = "2021-4-18 21:55";
+        this.endTime = "23:59";
+        this.location = "木铎楼B504";
+        this.desc = "我是一段很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的简介";
+        this.status = 1;
     }
 
     public ActShow(String name) {
@@ -55,8 +68,6 @@ public class ActShow extends LitePalSupport {
     }
 
     // 构建一个完全的活动信息展示类
-
-
     public ActShow(Long ownerId, Long actId, Long code, Long pwd, Long creatorId, String creatorAccount, String creatorName, String name, String startTime, String endTime, String location, String desc, Integer status) {
         this.ownerId = ownerId;
         this.actId = actId;

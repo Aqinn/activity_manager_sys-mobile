@@ -24,6 +24,11 @@ public class PublicConfig {
     public static final String BASE_URL = "http://121.5.162.173:8080/";
 
     /**
+     * 弹窗样式
+     */
+    public static int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
+
+    /**
      * 临时的TAG
      */
     public static final String TEMP_TAG = "temp_tag";

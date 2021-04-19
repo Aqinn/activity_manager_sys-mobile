@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">叮咚活动</string>
-    <string name="copyright">Copyright © 2020 Aqinn</string>
+    <string name="copyright">Copyright © 2021 Aqinn</string>
     <string name="confirm">确认</string>
     <string name="account">账号</string>
     <string name="register_center">注册账号</string>
@@ -24,8 +24,8 @@
     <string name="remember_account">记住密码</string>
     <string name="error_fragment_title">亲这边是出问题了噢</string>
     <string name="error_fragment_detail">暂时不知道是啥问题呢</string>
-    <string name="act">活动</string>
-    <string name="checkin">签到</string>
+    <string name="tab_create_act">我创建的活动</string>
+    <string name="tab_join_act">我参与的活动</string>
     <string name="personal">我</string>
     <string name="err_page">错误页面</string>
     <string name="act_center">活动中心</string>
@@ -72,4 +72,37 @@
     <string name="empty_create_act">暂时没有创建活动</string>
     <string name="empty_join_act">暂时没有参加活动</string>
     <string name="empty_attend">暂时没有签到信息</string>
+    <string name="create_attend_title_text">创建签到</string>
+    <string name="create_attend_select_time_hint">点击选择时间</string>
+    <string name="create_attend_start_time_text">签到开始时间</string>
+    <string name="create_attend_attend_type_text">签到类型</string>
+    <string name="create_attend_self_attend">自助</string>
+    <string name="create_attend_video_attend">视频</string>
+    <string name="create_attend_confirm">确认</string>
+    <string name="create_attend_end_time_text">签到结束时间</string>
+    <string name="edit_attend_time_start_time_text">签到开始时间</string>
+    <string name="edit_attend_time_end_time_text">签到结束时间</string>
+    <string name="edit_attend_time_start_time_hint">签到开始时间</string>
+    <string name="edit_attend_time_end_time_hint">签到结束时间</string>
+    <string name="edit_attend_type_self_attend">自助签到</string>
+    <string name="edit_attend_type_video_attend">视频签到</string>
+    <string name="act_center_fb_create_act">创建活动</string>
+    <string name="act_center_fb_join_act">加入活动</string>
+    <string name="join_act_code_hint">活动代码(6位纯数字)</string>
+    <string name="join_act_pwd_hint">活动密码(6位纯数字)</string>
+    <string name="join_act">加入活动</string>
+    <string name="act_manager_sys">活动管理系统</string>
+    <string name="act_manager_sys_subtitle">基于人脸识别的活动管理系统</string>
+    <string name="sticky_section_decoration_list_footer">没有更多活动了</string>
+    <string name="sticky_section_decoration_section_top_tip">当前身份是活动创建者</string>
+    <string name="sticky_section_decoration_section_bottom_tip"></string>
+    <string name="about">关于</string>
+    <string name="logout">退出登录</string>
+    <string name="face_collect">人脸采集</string>
+    <string name="setting">设置</string>
+    <string name="more_setting">更多设置</string>
+    <string name="act_desc">"简介: "</string>
+    <string name="should_attend">应签到</string>
+    <string name="have_attend">已签到</string>
+    <string name="have_not_attend">未签到</string>
 </resources>

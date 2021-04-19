@@ -71,7 +71,7 @@ public class LoginActivity extends BaseFragmentActivity implements ILogin.View {
             etPassword.setText(rememberPwd);
             cbRm.setChecked(true);
         }
-        // mPresenter.login("_aqinn", "biubiubiu");
+        mPresenter.login(etUsername.getText().toString(), etPassword.getText().toString(), cbRm.isChecked());
     }
 
     @OnClick({R.id.iv_head, R.id.bt_register, R.id.bt_confirm})

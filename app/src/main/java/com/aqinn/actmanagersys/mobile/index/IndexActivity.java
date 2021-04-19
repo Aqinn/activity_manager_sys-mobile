@@ -7,21 +7,13 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentContainerView;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.aqinn.actmanagersys.mobile.R;
 import com.aqinn.actmanagersys.mobile.base.BaseFragmentActivity;
-import com.aqinn.actmanagersys.mobile.error.ErrorFragment;
-import com.aqinn.actmanagersys.mobile.index.act.ActCenterFragment;
-import com.aqinn.actmanagersys.mobile.index.attend.AttendCenterFragment;
-import com.aqinn.actmanagersys.mobile.index.personal.PersonalFragment;
-import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
-import com.qmuiteam.qmui.arch.QMUIFragmentPagerAdapter;
-import com.qmuiteam.qmui.widget.QMUIViewPager;
-import com.qmuiteam.qmui.widget.tab.QMUITabSegment;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 /**
  * 主页 - Activity

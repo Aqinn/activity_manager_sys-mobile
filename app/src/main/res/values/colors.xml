@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- common -->
-    <color name="app_color_blue">#00A8E1</color>
+    <color name="app_color_blue">#5671f3</color>
+    <!--    00A8E1-->
     <color name="app_color_blue_disabled">#8000A8E1</color>
     <color name="app_color_blue_pressed">#c000A8E1</color>
 
@@ -51,7 +52,7 @@
     <color name="thing_default_bg">#FFFFFF</color>
     <color name="thing_ing">#6D9144</color>
     <color name="thing_not_begin">#D3AB3A</color>
-    <color name="thing_finish">#EF5362</color>
+    <color name="thing_finish">#EF5362</color><!-- ff4c00-->
     <color name="thing_default">#000000</color>
 
     <color name="edittext_wrong">#EF5362</color>
@@ -79,4 +80,9 @@
     <!--  时间选择器的颜色  -->
     <color name="date_picker_text_light">@color/app_color_blue</color>
     <color name="date_picker_text_dark">@color/app_color_blue</color>
+
+    <!--  Cookie调的黑色  -->
+    <color name="cookie_black">#3d3d3d</color>
+    <color name="cookie_black_light">#aeaeae</color>
+
 </resources>

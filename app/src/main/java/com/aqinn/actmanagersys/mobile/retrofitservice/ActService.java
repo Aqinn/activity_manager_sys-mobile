@@ -4,6 +4,7 @@ import com.aqinn.actmanagersys.mobile.dto.ApiResult;
 import com.aqinn.actmanagersys.mobile.model.ActShow;
 
 import io.reactivex.Observable;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -56,7 +57,7 @@ public interface ActService {
      * @param actId
      * @return
      */
-    @PUT("act/{actId}/start")
+    @PUT("/act/{actId}/start")
     Observable<ApiResult> startAct(@Path("actId") Long actId);
 
     /**
@@ -65,8 +66,16 @@ public interface ActService {
      * @param actId
      * @return
      */
-    @PUT("act/{actId}/stop")
+    @PUT("/act/{actId}/stop")
     Observable<ApiResult> stopAct(@Path("actId") Long actId);
+
+    /**
+     * 删除活动
+     * @param actId
+     * @return
+     */
+    @DELETE("/act/{actId}")
+    Observable<ApiResult> deleteAct(@Path("actId") Long actId);
 
 
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="16dp"
+    android:paddingTop="20dp"
+    android:paddingEnd="16dp"
+    android:background="?attr/qmui_skin_support_color_background">
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView2
+        android:id="@+id/iv_head"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:clickable="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/boy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:qmui_is_circle="true" />
+
+    <ImageView
+        android:id="@+id/iv_sex"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/male"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_head" />
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:text="Elon Zhong"
+        app:layout_constraintBottom_toBottomOf="@id/iv_sex"
+        app:layout_constraintStart_toEndOf="@id/iv_sex"
+        app:layout_constraintTop_toTopOf="@id/iv_sex" />
+
+<!--    <com.qmuiteam.qmui.widget.QMUIRadiusImageView2-->
+<!--        android:id="@+id/iv_contact_type"-->
+<!--        android:layout_width="25dp"-->
+<!--        android:layout_height="25dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        app:qmui_is_circle="true"-->
+<!--        android:src="@drawable/icon_wechat"-->
+<!--        app:layout_constraintStart_toStartOf="@id/iv_sex"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/iv_sex" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_contact"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="3dp"-->
+<!--        android:hint="@string/personal_contact_hint"-->
+<!--        android:text="_aqinn"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/iv_contact_type"-->
+<!--        app:layout_constraintStart_toEndOf="@id/iv_contact_type"-->
+<!--        app:layout_constraintTop_toTopOf="@id/iv_contact_type" />-->
+
+    <TextView
+        android:id="@+id/tv_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="大家好，我叫钟兆锋，来自北京师范大学珠海分校信息技术学院。我设计开发了一套基于人脸签到的活动管理系统。"
+        android:textColor="?attr/qmui_config_color_gray_5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_sex" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -41,6 +41,21 @@ public class AttendShow extends LitePalSupport {
     private Integer uStatus;
 
     // 仅测试用
+    public AttendShow() {
+        this.ownerId = 0L;
+        this.attendId = 0L;
+        this.actId = 0L;
+        this.name = "name";
+        this.startTime = "2021-4-18 21:55";
+        this.endTime = "23:59";
+        this.attendType = 1;
+        this.shouldAttendCount = 1;
+        this.haveAttendCount = 1;
+        this.status = 1;
+        this.uStatus = 1;
+    }
+
+    // 仅测试用
     public AttendShow(String name, String startTime, String endTime, Integer status, Integer shouldAttendCount, Integer haveAttendCount, Integer attendType) {
         this.name = name;
         this.startTime = startTime;

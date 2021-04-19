@@ -1,24 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.qmuiteam.qmui.widget.QMUIAppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <com.qmuiteam.qmui.widget.QMUIViewPager
-        android:id="@+id/pager"
-        android:background="?attr/app_content_bg_color"
+    android:layout_height="match_parent"
+    android:background="?attr/qmui_skin_support_color_background">
+
+    <!--标题栏样式一-->
+    <com.aqinn.actmanagersys.mobile.myview.TitleCenterToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/qmui_skin_support_color_background"
+        android:fitsSystemWindows="true"
+        app:subtitleTextColor="@color/app_color_blue"
+        app:theme="@style/MyActionBar"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/app_color_blue" />
+
+    <!--侧边栏样式-->
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/home_tab_height"
-        android:fitsSystemWindows="true"/>
-    <com.qmuiteam.qmui.widget.tab.QMUITabSegment
-        android:id="@+id/tabs"
-        android:layout_gravity="bottom"
-        android:textSize="12sp"
-        app:qmui_tab_icon_position="top"
-        app:qmui_tab_selected_text_size="16sp"
-        app:qmui_tab_normal_text_size="14sp"
-        app:qmui_topDividerHeight="1px"
-        app:qmui_topDividerColor="?attr/qmui_skin_support_color_separator"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/home_tab_height"/>
-</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
+        android:background="?attr/qmui_skin_support_color_background"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+
+        <!--主页内容-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.qmuiteam.qmui.widget.QMUIViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/home_tab_height"
+                android:background="?attr/app_content_bg_color" />
+            <!--            android:layout_marginBottom="0dp"-->
+
+            <com.qmuiteam.qmui.widget.tab.QMUITabSegment
+                android:id="@+id/tabs"
+                android:layout_width="240dp"
+                android:layout_height="@dimen/home_tab_height"
+                android:layout_gravity="top"
+                android:layout_marginStart="20dp"
+                android:textSize="12sp"
+                android:theme="@style/TextBold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:qmui_tab_has_indicator="true"
+                app:qmui_tab_indicator_height="3dp"
+                app:qmui_tab_icon_position="top"
+                app:qmui_tab_normal_text_size="14sp"
+                app:qmui_tab_mode="fixed"
+                app:qmui_tab_selected_text_size="20sp" />
+            <!--            app:qmui_topDividerColor="?attr/qmui_skin_support_color_separator"-->
+            <!--            app:qmui_topDividerHeight="1px"-->
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fbt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="50dp"
+                android:src="@drawable/add"
+                app:backgroundTint="?attr/qmui_skin_support_color_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:maxImageSize="65dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--侧边栏内容-->
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_view"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="?attr/qmui_skin_support_color_background"
+            app:headerLayout="@layout/navigationview_header"
+            app:menu="@menu/menu_navigation">
+
+            <!--添加脚布局-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/copyright" />
+
+            </LinearLayout>
+
+        </com.google.android.material.navigation.NavigationView>
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</com.qmuiteam.qmui.widget.QMUIAppBarLayout>

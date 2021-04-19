@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/al_find"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="10dp">
+
+    <LinearLayout
+        android:id="@+id/ll_type"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/cb_self"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_weight="2"
+            android:text="@string/edit_attend_type_self_attend"
+            android:textColor="@android:color/black"
+            android:theme="@style/MyCheckBox" />
+
+        <CheckBox
+            android:id="@+id/cb_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_weight="2"
+            android:text="@string/edit_attend_type_video_attend"
+            android:textColor="@android:color/black"
+            android:theme="@style/MyCheckBox" />
+
+    </LinearLayout>
+
+</RelativeLayout>

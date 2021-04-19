@@ -273,4 +273,38 @@ public class ParseUtil {
         return ff;
     }
 
+    /**
+     * 根据十进制数转换成二进制数，对应哪一位置上有 1 就是哪种签到方式被开启了
+     * 例子: dec2typeArr(3) 会输出 [1, 2] 代表着第一种签到方式（自助签到）和第二种签到方式（视频签到）都被开启了
+     *
+     * @param dec
+     * @return
+     */
+    public static Integer[] dec2typeArr(Integer dec) {
+        String binStr = Integer.toString(dec.intValue(), 2);
+        // System.out.println(binStr);
+        Integer[] res = new Integer[binStr.replace("0", "").length()];
+        int flag = 0;
+        for (int i = binStr.length() - 1; i >= 0; i--) {
+            if (binStr.charAt(i) == '1')
+                res[flag++] = binStr.length() - i;
+        }
+        return res;
+    }
+
+    /**
+     * 上面方法 Integer[] dec2typeArr(Integer dec) 的"反向过程"
+     * 例子: typeArr2dec(new Integer[]{1,2}) 会输出 3(30) => 11(2) => 第一位和第二位上都是1代表着第一种方式和第二种方式都选上了
+     * @return
+     */
+    public static Integer typeArr2dec(Integer[] typeArr) {
+        char[] temp = new char[]{'0', '0', '0', '0', '0', '0'};
+        for (Integer integer : typeArr) {
+            if (integer == 0)
+                continue;
+            temp[temp.length - integer] = '1';
+        }
+        return Integer.parseInt(String.valueOf(temp), 2);
+    }
+
 }

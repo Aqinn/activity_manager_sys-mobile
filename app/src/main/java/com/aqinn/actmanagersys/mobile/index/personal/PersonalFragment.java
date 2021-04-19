@@ -31,8 +31,8 @@ import butterknife.ButterKnife;
  */
 public class PersonalFragment extends BaseFragment {
 
-    @BindView(R.id.topbar)
-    QMUITopBarLayout topbar;
+//    @BindView(R.id.topbar)
+//    QMUITopBarLayout topbar;
     @BindView(R.id.iv_head)
     QMUIRadiusImageView2 ivHead;
     @BindView(R.id.tv_name)
@@ -57,14 +57,14 @@ public class PersonalFragment extends BaseFragment {
     }
 
     private void initView() {
-        topbar.setTitle(getResources().getString(R.string.personal));
-        topbar.addRightImageButton(R.mipmap.icon_topbar_overflow, R.id.topbar_right_change_button)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showBottomSheetList();
-                    }
-                });
+//        topbar.setTitle(getResources().getString(R.string.personal));
+//        topbar.addRightImageButton(R.mipmap.icon_topbar_overflow, R.id.topbar_right_change_button)
+//                .setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        showBottomSheetList();
+//                    }
+//                });
         if (PublicConfig.isDebug) {
             User user = new User("zchin", "biubiubiu", "Aqinn", 1, "_aqinn", 1, "我是一个兵，来自老百姓！我是一个兵，来自老百姓！我是一个兵，来自老百姓！我是一个兵，来自老百姓！我是一个兵，来自老百姓！我是一个兵，来自老百姓！我是一个兵，来自老百姓！我是一个兵，来自老百姓！我是一个兵，来自老百姓！我是一个兵，来自老百姓！我是一个兵，来自老百姓！我是一个兵，来自老百姓！我是一个兵，来自老百姓！我是一个兵，来自老百姓！我是一个兵，来自老百姓！我是一个兵，来自老百姓！");
             tvName.setText(user.getName());

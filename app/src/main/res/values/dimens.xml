@@ -9,11 +9,13 @@
     <dimen name="register_input_end_margin">90dp</dimen>
     <dimen name="home_tab_height">49dp</dimen>
     <dimen name="page_content_padding">17dp</dimen>
-    <dimen name="list_item_height_act">160dp</dimen>
-    <dimen name="list_item_padding">15dp</dimen>
+    <dimen name="list_item_height_act">180dp</dimen>
+    <dimen name="list_item_height_attend">130dp</dimen>
+    <dimen name="list_item_padding">17dp</dimen>
+    <dimen name="list_item_padding_start">30dp</dimen>
     <dimen name="list_item_margin">10dp</dimen>
     <dimen name="list_item_interval">5dp</dimen>
-    <dimen name="status_text_size">20dp</dimen>
+    <dimen name="status_text_size">17dp</dimen>
     <dimen name="inner_with_outer_margin">15dp</dimen>
     <dimen name="act_detail_name_text_size">35dp</dimen>
     <dimen name="act_detail_icon_text_margin">30dp</dimen>
@@ -23,5 +25,12 @@
     <dimen name="act_detail_desc_text_size">16dp</dimen>
     <dimen name="act_detail_icon_width">25dp</dimen>
     <dimen name="act_detail_icon_height">25dp</dimen>
+    <dimen name="picker_view_height">160dp</dimen>
+    <dimen name="date_unit_text_size">18dp</dimen>
+    <dimen name="attend_detail_name_text_size">28dp</dimen>
+    <dimen name="title_right_margin">20dp</dimen>
+    <dimen name="test_bg_in_left_right_padding">2dp</dimen>
+    <dimen name="test_bg_out_left_right_padding">6dp</dimen>
+    <dimen name="test_bg_out_left_right_radius">8dp</dimen>
 
 </resources>

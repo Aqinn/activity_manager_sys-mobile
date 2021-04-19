@@ -187,7 +187,7 @@
         <item name="height">30dp</item>
         <item name="android:textSize">19dp</item>
         <item name="android:textStyle">bold</item>
-<!--        <item name="android:"-->
+        <!--        <item name="android:"-->
     </style>
 
     <style name="date_picker_dialog" parent="android:style/Theme.Dialog">
@@ -197,5 +197,36 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">#ffffff</item>
     </style>
+
+    <style name="MyCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/app_color_blue_pressed</item>
+        <item name="colorControlActivated">@color/app_color_blue</item>
+        <!--        <item name="colorControlActivated">@color/app_color_blue</item>-->
+    </style>
+
+    <style name="TextAppearance_TitleBar_Title" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <!-- title文字样式（和toolbar自带样式一样，可自行修改） -->
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance_TitleBar_subTitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <!-- 左右文字样式 （和toolbar副标题样式一样，可自行修改）-->
+    </style>
+
+    <style name="MyActionBar" parent="ThemeOverlay.AppCompat.DayNight.ActionBar">
+        <!--    控制左边图标的颜色    -->
+        <item name="colorControlNormal">@color/cookie_black</item>
+        <item name="android:statusBarColor">?attr/qmui_skin_support_color_background</item>
+        <!-- 隐藏状态栏并延伸，下拉状态栏后一段时间自动隐藏状态栏 -->
+        <item name="android:windowFullscreen">true</item>
+        <!-- API21后效果：状态栏与导航栏浅灰半透明并延伸布局 -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+    <style name="TextBold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 
 </resources>
