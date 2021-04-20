@@ -2,6 +2,7 @@ package com.aqinn.actmanagersys.mobile.base;
 
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,10 +21,13 @@ import com.qmuiteam.qmui.arch.QMUIFragment;
 
 /**
  * 自定义Fragment
+ *
  * @author Aqinn
  * @date 2021/3/29 5:10 PM
  */
-public abstract class BaseFragment extends QMUIFragment  implements BaseNetworkService{
+public abstract class BaseFragment extends QMUIFragment implements BaseNetworkService {
+
+    private static final String TAG = "BaseFragment";
 
     protected final void fitSystemWindow(BaseFragment fragment) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -48,6 +52,37 @@ public abstract class BaseFragment extends QMUIFragment  implements BaseNetworkS
 //                attributes.flags |= flagTranslucentNavigation;
                 window.setAttributes(attributes);
             }
+        }
+    }
+
+    public void changeStatusBarTextColor(Window window, boolean isBlack) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decor = window.getDecorView();
+            int flags = 0;
+            if (isBlack) {
+                flags = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            } else {
+                flags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            }
+            Log.d(TAG, "changeStatusBarTextColor before: " + decor.getSystemUiVisibility());
+            decor.setSystemUiVisibility(flags);
+            Log.d(TAG, "changeStatusBarTextColor after: " + decor.getSystemUiVisibility());
+        }
+    }
+
+    public void comeIndexChangeStatusBarTextColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decor = requireActivity().getWindow().getDecorView();
+            int flags = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            decor.setSystemUiVisibility(flags);
+        }
+    }
+
+    public void leaveIndexChangeStatusBarTextColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decor = requireActivity().getWindow().getDecorView();
+            int flags = 0x500;
+            decor.setSystemUiVisibility(flags);
         }
     }
 

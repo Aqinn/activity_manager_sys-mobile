@@ -11,6 +11,7 @@ import com.aqinn.actmanagersys.mobile.base.BaseNetworkService;
  * @author Aqinn
  * @date 2021/4/7 1:42 PM
  */
+@Deprecated
 public interface IAttendCenter {
 
     interface View {

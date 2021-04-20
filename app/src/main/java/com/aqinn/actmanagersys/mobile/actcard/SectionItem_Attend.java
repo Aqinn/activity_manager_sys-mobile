@@ -1,4 +1,4 @@
-package com.aqinn.actmanagersys.mobile.base.QMUI.my;
+package com.aqinn.actmanagersys.mobile.actcard;
 
 import com.aqinn.actmanagersys.mobile.model.AttendShow;
 import com.qmuiteam.qmui.widget.section.QMUISection;

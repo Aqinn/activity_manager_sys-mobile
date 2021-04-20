@@ -17,6 +17,7 @@ import io.reactivex.schedulers.Schedulers;
  * @author Aqinn
  * @date 2021/4/15 8:29 PM
  */
+@Deprecated
 public class MyCreateActModel implements IMyCreateAct.Model {
 
     private static final String TAG = "MyCreateActModel";

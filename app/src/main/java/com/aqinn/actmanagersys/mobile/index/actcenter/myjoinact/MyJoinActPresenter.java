@@ -27,6 +27,7 @@ import java.util.List;
  * @author Aqinn
  * @date 2021/4/15 9:55 PM
  */
+@Deprecated
 public class MyJoinActPresenter implements IMyJoinAct.Presenter {
 
     private IMyJoinAct.View mView;

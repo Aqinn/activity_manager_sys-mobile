@@ -15,6 +15,7 @@ import io.reactivex.schedulers.Schedulers;
  * @author Aqinn
  * @date 2021/4/16 12:25 PM
  */
+@Deprecated
 public class ActCenterModel implements IActCenter.Model {
 
     @Override

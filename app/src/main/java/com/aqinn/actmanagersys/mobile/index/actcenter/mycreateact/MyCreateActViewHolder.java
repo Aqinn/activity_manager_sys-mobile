@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
  * @author Aqinn
  * @date 2021/4/15 8:20 PM
  */
+@Deprecated
 public class MyCreateActViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tv_name)
     TextView tvName;

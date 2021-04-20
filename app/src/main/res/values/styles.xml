@@ -199,7 +199,8 @@
     </style>
 
     <style name="MyCheckBox" parent="Theme.AppCompat.Light">
-        <item name="colorControlNormal">@color/app_color_blue_pressed</item>
+<!--        <item name="colorControlNormal">@color/app_color_blue_pressed</item>-->
+        <item name="colorControlNormal">@color/cookie_black_light</item>
         <item name="colorControlActivated">@color/app_color_blue</item>
         <!--        <item name="colorControlActivated">@color/app_color_blue</item>-->
     </style>
@@ -226,6 +227,14 @@
 
     <style name="TextBold">
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="NormalEditText" parent="Theme.AppCompat.Light">
+        <!-- AppCompatEditText默认状态状态设置底线颜色 -->
+        <item name="colorControlNormal">@color/cookie_black_light</item>
+        <!-- AppCompatEditText选择的底线颜色 -->
+        <item name="colorControlActivated">@color/app_color_blue</item>
+        <!--        <item name="colorControlActivated">@color/app_color_blue</item>-->
     </style>
 
 

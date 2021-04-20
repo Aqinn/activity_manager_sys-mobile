@@ -22,6 +22,7 @@ import java.util.Random;
  * @author Aqinn
  * @date 2021/4/7 1:45 PM
  */
+@Deprecated
 public class AttendCenterAdapter extends RecyclerView.Adapter<AttendCenterViewHolder> {
 
     private Context mContext;

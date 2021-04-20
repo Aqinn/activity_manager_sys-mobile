@@ -45,6 +45,7 @@ import java.util.List;
  * @author Aqinn
  * @date 2021/4/7 2:24 PM
  */
+@Deprecated
 public class ActCenterPresenter implements IActCenter.Presenter {
 
     private IActCenter.View mView;

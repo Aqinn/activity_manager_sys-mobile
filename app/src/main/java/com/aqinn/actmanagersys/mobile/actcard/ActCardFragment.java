@@ -1,18 +1,16 @@
-package com.aqinn.actmanagersys.mobile.base.QMUI.my;
+package com.aqinn.actmanagersys.mobile.actcard;
 
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.aqinn.actmanagersys.mobile.R;
 import com.aqinn.actmanagersys.mobile.base.BaseFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 import com.qmuiteam.qmui.widget.section.QMUIStickySectionLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * 活动卡片列表界面 - View
@@ -30,13 +28,19 @@ public class ActCardFragment extends BaseFragment implements IActCard.View {
     @BindView(R.id.section_layout)
     QMUIStickySectionLayout mSectionLayout;
 
-    private IActCard.Presenter mPresenter;
+    private final ActCardType mType;
+
+    public IActCard.Presenter mPresenter;
+
+    public ActCardFragment(ActCardType type) {
+        mType = type;
+    }
 
     @Override
     protected View onCreateView() {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_section_layout, null);
         ButterKnife.bind(this, view);
-        mPresenter = new ActCardPresenter(this);
+        mPresenter = new ActCardPresenter(this, mType);
         mPresenter.init(this, mTopBar, mPullRefreshLayout, mSectionLayout);
         return view;
     }

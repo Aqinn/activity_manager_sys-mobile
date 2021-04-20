@@ -14,6 +14,7 @@ import java.util.List;
  * @author Aqinn
  * @date 2021/4/15 8:22 PM
  */
+@Deprecated
 public interface IMyCreateAct {
 
     interface View {

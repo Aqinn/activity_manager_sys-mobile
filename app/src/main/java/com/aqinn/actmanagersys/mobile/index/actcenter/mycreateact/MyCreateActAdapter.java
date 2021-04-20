@@ -19,6 +19,7 @@ import java.util.List;
  * @author Aqinn
  * @date 2021/4/15 8:21 PM
  */
+@Deprecated
 public class MyCreateActAdapter extends RecyclerView.Adapter<MyCreateActViewHolder> {
 
     private Context mContext;

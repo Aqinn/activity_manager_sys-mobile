@@ -1,10 +1,9 @@
-package com.aqinn.actmanagersys.mobile.base.QMUI.my;
+package com.aqinn.actmanagersys.mobile.actcard;
 
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,12 +19,10 @@ import com.aqinn.actmanagersys.mobile.myview.AnimationImageView;
 import com.aqinn.actmanagersys.mobile.utils.ParseUtil;
 import com.qmuiteam.qmui.widget.section.QMUIDefaultStickySectionAdapter;
 import com.qmuiteam.qmui.widget.section.QMUISection;
-import com.qmuiteam.qmui.widget.section.QMUIStickySectionAdapter;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,20 +36,27 @@ import butterknife.ButterKnife;
  */
 public class ActCardSectionAdapter extends QMUIDefaultStickySectionAdapter<SectionHeader_Act, SectionItem_Attend> {
 
-    private static Map<Integer, String> mMap;
+    private static Map<Integer, String> mActAttendStatusMap;
+    private static Map<Integer, String> mUStatusMap;
 
     static {
-        mMap = new HashMap<>();
-        mMap.put(0, "未开始");
-        mMap.put(1, "进行中");
-        mMap.put(2, "已结束");
+        mActAttendStatusMap = new HashMap<>();
+        mActAttendStatusMap.put(1, "未开始");
+        mActAttendStatusMap.put(2, "进行中");
+        mActAttendStatusMap.put(3, "已结束");
+        mUStatusMap = new HashMap<>();
+        mUStatusMap.put(1, "已签到");
+        mUStatusMap.put(2, "未签到");
     }
 
     public List<ActShow> actList;
     public Map<ActShow, List<AttendShow>> actAttendMap;
     public boolean isInCardDismiss = true;
 
-    public ActCardSectionAdapter(List<ActShow> actList, Map<ActShow, List<AttendShow>> actAttendMap) {
+    private ActCardType mType;
+
+    public ActCardSectionAdapter(ActCardType type, List<ActShow> actList, Map<ActShow, List<AttendShow>> actAttendMap) {
+        mType = type;
         this.actList = actList;
         this.actAttendMap = actAttendMap;
     }
@@ -191,7 +195,7 @@ public class ActCardSectionAdapter extends QMUIDefaultStickySectionAdapter<Secti
                 + attend.getHaveAttendCount() + "    "
                 + BaseApplication.getContext().getString(R.string.have_not_attend) + ":"
                 + (attend.getShouldAttendCount() - attend.getHaveAttendCount()));
-        String status = mMap.get(new Random().nextInt(3));
+        String status = mActAttendStatusMap.get(attend.getStatus());
         realHolder.tvStatus.setText(status);
         realHolder.tvTime.setText(attend.getStartTime() + " -> " + attend.getEndTime());
         int statusTextColor = R.color.thing_default;
@@ -203,6 +207,10 @@ public class ActCardSectionAdapter extends QMUIDefaultStickySectionAdapter<Secti
             statusTextColor = R.color.thing_finish;
         }
         realHolder.tvStatus.setTextColor(BaseApplication.getContext().getResources().getColor(statusTextColor));
+        if (mType == ActCardType.FLAG_CREATE)
+            realHolder.tvUStatus.setText("");
+        else if (mType == ActCardType.FLAG_JOIN)
+            realHolder.tvUStatus.setText(mUStatusMap.get(attend.getuStatus()));
     }
 
     public static class SectionHeaderViewHolder extends ViewHolder {
@@ -239,6 +247,8 @@ public class ActCardSectionAdapter extends QMUIDefaultStickySectionAdapter<Secti
         TextView tvCount;
         @BindView(R.id.tv_status)
         TextView tvStatus;
+        @BindView(R.id.tv_ustatus)
+        TextView tvUStatus;
         @BindView(R.id.cl_attend_info)
         ConstraintLayout clAttendInfo;
         @BindView(R.id.tv_time)

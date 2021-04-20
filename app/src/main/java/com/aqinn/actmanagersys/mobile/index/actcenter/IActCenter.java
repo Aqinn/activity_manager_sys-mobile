@@ -12,6 +12,7 @@ import com.youth.banner.Banner;
  * @author Aqinn
  * @date 2021/3/29 5:31 PM
  */
+@Deprecated
 public interface IActCenter {
 
     interface View {

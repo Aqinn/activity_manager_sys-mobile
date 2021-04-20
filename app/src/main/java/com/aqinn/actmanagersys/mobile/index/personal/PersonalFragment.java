@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
  * @author Aqinn
  * @date 2021/4/2 1:32 PM
  */
+@Deprecated
 public class PersonalFragment extends BaseFragment {
 
 //    @BindView(R.id.topbar)

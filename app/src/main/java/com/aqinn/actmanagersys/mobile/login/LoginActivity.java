@@ -54,6 +54,8 @@ public class LoginActivity extends BaseFragmentActivity implements ILogin.View {
 
     private ILogin.Presenter mPresenter;
 
+    private static boolean isFirstLogin = true;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +73,10 @@ public class LoginActivity extends BaseFragmentActivity implements ILogin.View {
             etPassword.setText(rememberPwd);
             cbRm.setChecked(true);
         }
-        mPresenter.login(etUsername.getText().toString(), etPassword.getText().toString(), cbRm.isChecked());
+        if (isFirstLogin) {
+            mPresenter.login(etUsername.getText().toString(), etPassword.getText().toString(), cbRm.isChecked());
+            isFirstLogin = false;
+        }
     }
 
     @OnClick({R.id.iv_head, R.id.bt_register, R.id.bt_confirm})

@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
  * @author Aqinn
  * @date 2021/3/30 10:20 AM
  */
+@Deprecated
 public class MyJoinActFragment extends BaseFragment implements IMyJoinAct.View {
 
 

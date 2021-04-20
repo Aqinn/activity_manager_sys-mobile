@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
  * @author Aqinn
  * @date 2021/3/30 10:20 AM
  */
+@Deprecated
 public class MyCreateActFragment extends BaseFragment implements IMyCreateAct.View {
 
     @BindView(R.id.rv_create)

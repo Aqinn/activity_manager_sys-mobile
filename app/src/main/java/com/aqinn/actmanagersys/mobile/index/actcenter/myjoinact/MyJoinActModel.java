@@ -18,6 +18,7 @@ import io.reactivex.schedulers.Schedulers;
  * @author Aqinn
  * @date 2021/4/15 10:03 PM
  */
+@Deprecated
 public class MyJoinActModel implements IMyJoinAct.Model {
 
     @Override

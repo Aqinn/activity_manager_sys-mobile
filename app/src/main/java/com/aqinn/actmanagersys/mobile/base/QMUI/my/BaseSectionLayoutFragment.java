@@ -2,38 +2,23 @@ package com.aqinn.actmanagersys.mobile.base.QMUI.my;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aqinn.actmanagersys.mobile.R;
+import com.aqinn.actmanagersys.mobile.actcard.SectionHeader_Act;
+import com.aqinn.actmanagersys.mobile.actcard.SectionItem_Attend;
 import com.aqinn.actmanagersys.mobile.base.BaseFragment;
-import com.aqinn.actmanagersys.mobile.base.PublicConfig;
-import com.aqinn.actmanagersys.mobile.index.actcenter.ActCenterFragment;
-import com.aqinn.actmanagersys.mobile.index.actcenter.actdetail.ActDetailFragment;
-import com.aqinn.actmanagersys.mobile.index.actcenter.joinact.JoinActDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.qmuiteam.qmui.recyclerView.QMUIRVDraggableScrollBar;
-import com.qmuiteam.qmui.skin.QMUISkinManager;
-import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.popup.QMUIPopup;
-import com.qmuiteam.qmui.widget.popup.QMUIPopups;
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 import com.qmuiteam.qmui.widget.section.QMUIStickySectionAdapter;
 import com.qmuiteam.qmui.widget.section.QMUIStickySectionLayout;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * 基础的Section布局Fragment
@@ -42,6 +27,7 @@ import butterknife.OnClick;
  * @author Aqinn
  * @date 2021/4/17 5:49 PM
  */
+@Deprecated
 public abstract class BaseSectionLayoutFragment extends BaseFragment {
 
     private static final String TAG = "BaseSectionLayoutFragme";

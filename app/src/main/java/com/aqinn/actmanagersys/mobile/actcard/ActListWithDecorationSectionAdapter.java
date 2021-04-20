@@ -1,12 +1,9 @@
-package com.aqinn.actmanagersys.mobile.base.QMUI.my;
+package com.aqinn.actmanagersys.mobile.actcard;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -16,21 +13,13 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.aqinn.actmanagersys.mobile.R;
-import com.aqinn.actmanagersys.mobile.base.BaseFragment;
-import com.aqinn.actmanagersys.mobile.base.QMUI.SectionHeader;
-import com.aqinn.actmanagersys.mobile.base.QMUI.SectionItem;
 import com.aqinn.actmanagersys.mobile.model.ActShow;
 import com.aqinn.actmanagersys.mobile.model.AttendShow;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.section.QMUISection;
 import com.qmuiteam.qmui.widget.section.QMUISectionDiffCallback;
 import com.qmuiteam.qmui.widget.section.QMUIStickySectionAdapter;
-import com.youth.banner.Banner;
-import com.youth.banner.adapter.BannerImageAdapter;
-import com.youth.banner.holder.BannerImageHolder;
-import com.youth.banner.indicator.CircleIndicator;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -54,8 +43,9 @@ public class ActListWithDecorationSectionAdapter extends ActCardSectionAdapter {
     public static final int ITEM_TYPE_SECTION_TIP_START = 3;
     public static final int ITEM_TYPE_SECTION_TIP_END = 4;
 
-    public ActListWithDecorationSectionAdapter(List<ActShow> actList, Map<ActShow, List<AttendShow>> actAttendMap) {
-        super(actList, actAttendMap);
+
+    public ActListWithDecorationSectionAdapter(ActCardType type, List<ActShow> actList, Map<ActShow, List<AttendShow>> actAttendMap) {
+        super(type, actList, actAttendMap);
     }
 
     @NonNull

@@ -34,6 +34,7 @@ import java.util.List;
  * @author Aqinn
  * @date 2021/4/7 1:48 PM
  */
+@Deprecated
 public class AttendCenterPresenter implements IAttendCenter.Presenter {
 
     private IAttendCenter.View mView;
@@ -130,7 +131,7 @@ public class AttendCenterPresenter implements IAttendCenter.Presenter {
                                     if (PublicConfig.isDebug)
                                         Toast.makeText(context.getActivity(), "Test: 更改签到时间", Toast.LENGTH_SHORT).show();
                                     // showEditAttendTime(context, ((AttendCenterViewHolder) vh).tvTime, item);
-                                    EditAttendTimeDialogBuilder builder = new EditAttendTimeDialogBuilder(context.getActivity());
+                                    EditAttendTimeDialogBuilder builder = new EditAttendTimeDialogBuilder(context.getActivity(), item.getStartTime(), item.getEndTime());
                                     builder.setTitle("更改签到时间")
                                             .setSkinManager(QMUISkinManager.defaultInstance(context.getActivity()))
                                             .addAction(0, "确定", QMUIDialogAction.ACTION_PROP_POSITIVE, new QMUIDialogAction.ActionListener() {

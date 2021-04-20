@@ -1,30 +1,17 @@
 package com.aqinn.actmanagersys.mobile.index;
 
-import android.annotation.SuppressLint;
-import android.content.res.ColorStateList;
 import android.os.Build;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.aqinn.actmanagersys.mobile.R;
 import com.aqinn.actmanagersys.mobile.base.BaseFragment;
-import com.aqinn.actmanagersys.mobile.base.PublicConfig;
-import com.aqinn.actmanagersys.mobile.base.QMUI.my.ActCardFragment;
-import com.aqinn.actmanagersys.mobile.base.QMUI.my.ListWithDecorationSectionLayoutFragment;
-import com.aqinn.actmanagersys.mobile.error.ErrorFragment;
 import com.aqinn.actmanagersys.mobile.myview.TitleCenterToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.qmuiteam.qmui.arch.QMUIFragment;
-import com.qmuiteam.qmui.arch.QMUIFragmentPagerAdapter;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment;
 
@@ -65,22 +52,23 @@ public class IndexFragment extends BaseFragment implements IIndex.View {
         return root;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        // 这两句话（下面那句在onStop()）不要删，用于修改主页Fragment的状态栏颜色，删了别的地方就没有沉浸式状态栏的效果了
+        comeIndexChangeStatusBarTextColor();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        // 这两句话（下面那句在onStop()）不要删，用于修改主页Fragment的状态栏颜色，删了别的地方就没有沉浸式状态栏的效果了
+        leaveIndexChangeStatusBarTextColor();
+    }
+
     @OnClick(R.id.fbt)
     public void onClick(View v) {
         mPresenter.showCreateMenuDialog(v);
-    }
-
-    public void changeStatusBarTextColor(Window window, boolean isBlack) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            View decor = window.getDecorView();
-            int flags = 0;
-            if (isBlack) {
-                flags = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-            }else {
-                flags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            }
-            decor.setSystemUiVisibility(flags);
-        }
     }
 
 }

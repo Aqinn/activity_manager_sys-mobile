@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
  * @author Aqinn
  * @date 2021/4/1 10:19 AM
  */
+@Deprecated
 public class AttendCenterFragment extends BaseFragment implements IAttendCenter.View{
 
 //    @BindView(R.id.topbar)

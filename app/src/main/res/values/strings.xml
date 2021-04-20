@@ -105,4 +105,5 @@
     <string name="should_attend">应签到</string>
     <string name="have_attend">已签到</string>
     <string name="have_not_attend">未签到</string>
+    <string name="create_attend">创建签到</string>
 </resources>

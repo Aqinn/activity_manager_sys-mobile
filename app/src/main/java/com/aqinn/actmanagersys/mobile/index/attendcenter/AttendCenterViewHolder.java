@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
  * @author Aqinn
  * @date 2021/4/7 1:45 PM
  */
+@Deprecated
 public class AttendCenterViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.iv_line_up)
     ImageView ivLineUp;

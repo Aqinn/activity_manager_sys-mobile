@@ -1,7 +1,6 @@
-package com.aqinn.actmanagersys.mobile.index.attendcenter.editattend;
+package com.aqinn.actmanagersys.mobile.newui.createattend;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,36 +10,32 @@ import androidx.annotation.Nullable;
 import com.aqinn.actmanagersys.mobile.R;
 import com.aqinn.actmanagersys.mobile.myview.CustomDatePicker;
 import com.aqinn.actmanagersys.mobile.utils.FormatUtil;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogBuilder;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogView;
+import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
+import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheetBaseBuilder;
+import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheetRootLayout;
 
 /**
- * 编辑签到时间的 DialogBuilder
+ * 创建签到BottomSheetDialog Builder
  *
  * @author Aqinn
- * @date 2021/4/16 10:14 PM
+ * @date 2021/4/19 5:19 PM
  */
-public class EditAttendTimeDialogBuilder extends QMUIDialogBuilder<EditAttendTimeDialogBuilder> {
+public class CreateAttendBottomSheetDialogBuilder extends QMUIBottomSheetBaseBuilder<CreateAttendBottomSheetDialogBuilder> {
 
-    public TextView tvStartTime;
-    public TextView tvEndTime;
+    private TextView tvStartTime;
+    private TextView tvEndTime;
 
     public CustomDatePicker startTimePicker;
     public CustomDatePicker endTimePicker;
-    private String startTime;
-    private String endTime;
 
-    public EditAttendTimeDialogBuilder(Context context, String startTime, String endTime) {
+    public CreateAttendBottomSheetDialogBuilder(Context context) {
         super(context);
-        this.startTime = startTime;
-        this.endTime = endTime;
     }
 
     @Nullable
     @Override
-    protected View onCreateContent(@NonNull QMUIDialog dialog, @NonNull QMUIDialogView parent, @NonNull Context context) {
-        View content = dialog.getLayoutInflater().inflate(R.layout.fragment_edit_attend_time, null);
+    protected View onCreateContentView(@NonNull QMUIBottomSheet bottomSheet, @NonNull QMUIBottomSheetRootLayout rootLayout, @NonNull Context context) {
+        View content = bottomSheet.getLayoutInflater().inflate(R.layout.fragment_create_attend, null);
         tvStartTime = content.findViewById(R.id.tv_start_time);
         tvEndTime = content.findViewById(R.id.tv_end_time);
         initStartTimePicker(context, tvStartTime);
@@ -57,31 +52,7 @@ public class EditAttendTimeDialogBuilder extends QMUIDialogBuilder<EditAttendTim
                 endTimePicker.show(tvEndTime.getText().toString());
             }
         });
-        return wrapWithScroll(content);
-    }
-
-    @Nullable
-    @Override
-    protected View onCreateTitle(@NonNull QMUIDialog dialog, @NonNull QMUIDialogView parent, @NonNull Context context) {
-        View tv = super.onCreateTitle(dialog, parent, context);
-        if (tv != null) {
-            TypedArray a = context.obtainStyledAttributes(null,
-                    com.qmuiteam.qmui.R.styleable.QMUIDialogTitleTvCustomDef, com.qmuiteam.qmui.R.attr.qmui_dialog_title_style, 0);
-            int count = a.getIndexCount();
-            for (int i = 0; i < count; i++) {
-                int attr = a.getIndex(i);
-                if (attr == com.qmuiteam.qmui.R.styleable.QMUIDialogTitleTvCustomDef_qmui_paddingBottomWhenNotContent) {
-                    tv.setPadding(
-                            tv.getPaddingLeft(),
-                            tv.getPaddingTop(),
-                            tv.getPaddingRight(),
-                            a.getDimensionPixelSize(attr, tv.getPaddingBottom())
-                    );
-                }
-            }
-            a.recycle();
-        }
-        return tv;
+        return content;
     }
 
     /**
@@ -90,8 +61,9 @@ public class EditAttendTimeDialogBuilder extends QMUIDialogBuilder<EditAttendTim
     private void initStartTimePicker(Context context, TextView tvStartTime) {
         String beginTime = "1999-12-09 03:00";
         String endTime = FormatUtil.long2Str(1893427199000L, true);
+        String currentTime = FormatUtil.long2Str(System.currentTimeMillis(), true);
 
-        tvStartTime.setText(startTime);
+        tvStartTime.setText(currentTime);
 
         // 通过日期字符串初始化日期，格式请用：yyyy-MM-dd HH:mm
         startTimePicker = new CustomDatePicker(context, new CustomDatePicker.Callback() {
@@ -116,8 +88,9 @@ public class EditAttendTimeDialogBuilder extends QMUIDialogBuilder<EditAttendTim
     private void initEndTimePicker(Context context, TextView tvEndTime) {
         String beginTime = "1999-12-09 03:00";
         String endTime = FormatUtil.long2Str(1893427199000L, true);
+        String currentTime = FormatUtil.long2Str(System.currentTimeMillis(), true);
 
-        tvEndTime.setText(endTime);
+        tvEndTime.setText(currentTime);
 
         // 通过日期字符串初始化日期，格式请用：yyyy-MM-dd HH:mm
         endTimePicker = new CustomDatePicker(context, new CustomDatePicker.Callback() {

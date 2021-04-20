@@ -34,6 +34,7 @@ import butterknife.OnClick;
  * @author Aqinn
  * @date 2021/3/29 5:30 PM
  */
+@Deprecated
 public class ActCenterFragment extends BaseFragment implements IActCenter.View {
 
 //    @BindView(R.id.topbar)

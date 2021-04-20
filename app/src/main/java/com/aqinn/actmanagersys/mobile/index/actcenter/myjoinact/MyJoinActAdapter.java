@@ -19,6 +19,7 @@ import java.util.List;
  * @author Aqinn
  * @date 2021/4/15 9:52 PM
  */
+@Deprecated
 public class MyJoinActAdapter extends RecyclerView.Adapter<MyJoinActViewHolder> {
 
     private Context mContext;

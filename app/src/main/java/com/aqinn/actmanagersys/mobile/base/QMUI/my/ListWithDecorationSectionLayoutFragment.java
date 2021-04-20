@@ -10,12 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.aqinn.actmanagersys.mobile.R;
+import com.aqinn.actmanagersys.mobile.actcard.ActListWithDecorationSectionAdapter;
+import com.aqinn.actmanagersys.mobile.actcard.IActCard;
+import com.aqinn.actmanagersys.mobile.actcard.SectionHeader_Act;
+import com.aqinn.actmanagersys.mobile.actcard.SectionItem_Attend;
 import com.aqinn.actmanagersys.mobile.base.PublicConfig;
 import com.aqinn.actmanagersys.mobile.model.ActShow;
 import com.aqinn.actmanagersys.mobile.model.AttendShow;
-import com.qmuiteam.qmui.skin.QMUISkinManager;
-import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 import com.qmuiteam.qmui.widget.section.QMUISection;
 import com.qmuiteam.qmui.widget.section.QMUIStickySectionAdapter;
 
@@ -33,6 +34,7 @@ import java.util.Random;
  * @author Aqinn
  * @date 2021/4/17 6:00 PM
  */
+@Deprecated
 public class ListWithDecorationSectionLayoutFragment extends BaseSectionLayoutFragment implements IActCard.View {
 
     @Override
@@ -45,7 +47,7 @@ public class ListWithDecorationSectionLayoutFragment extends BaseSectionLayoutFr
         List<ActShow> actList = new ArrayList<>();
         Map<ActShow, List<AttendShow>> actAttendMap = new HashMap<>();
         prepareData(actList, actAttendMap);
-        mAdapter = new ActListWithDecorationSectionAdapter(actList, actAttendMap);
+        mAdapter = new ActListWithDecorationSectionAdapter(null, actList, actAttendMap);
         List<QMUISection<SectionHeader_Act, SectionItem_Attend>> data = new ArrayList<>();
         wrapData(actList, actAttendMap, data);
         mAdapter.setData(data);

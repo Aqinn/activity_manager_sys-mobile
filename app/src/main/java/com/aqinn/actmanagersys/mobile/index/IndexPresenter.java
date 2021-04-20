@@ -1,6 +1,8 @@
 package com.aqinn.actmanagersys.mobile.index;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,15 +15,17 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.aqinn.actmanagersys.mobile.R;
+import com.aqinn.actmanagersys.mobile.actcard.ActCardType;
 import com.aqinn.actmanagersys.mobile.base.BaseFragment;
 import com.aqinn.actmanagersys.mobile.base.PublicConfig;
-import com.aqinn.actmanagersys.mobile.base.QMUI.my.ActCardFragment;
+import com.aqinn.actmanagersys.mobile.actcard.ActCardFragment;
 import com.aqinn.actmanagersys.mobile.base.QMUI.my.ListWithDecorationSectionLayoutFragment;
 import com.aqinn.actmanagersys.mobile.error.ErrorFragment;
+import com.aqinn.actmanagersys.mobile.facecollect.FaceCollectActivity;
 import com.aqinn.actmanagersys.mobile.index.actcenter.actdetail.ActDetailFragment;
 import com.aqinn.actmanagersys.mobile.index.actcenter.joinact.JoinActDialogBuilder;
+import com.aqinn.actmanagersys.mobile.login.LoginActivity;
 import com.aqinn.actmanagersys.mobile.myview.TitleCenterToolbar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.arch.QMUIFragmentPagerAdapter;
@@ -37,8 +41,7 @@ import com.qmuiteam.qmui.widget.tab.QMUITabSegment;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import butterknife.BindView;
+import java.util.Objects;
 
 /**
  * 首页 - Presenter
@@ -61,6 +64,8 @@ public class IndexPresenter implements IIndex.Presenter {
 
     private QMUIPopup mGlobalAction;
 
+    private Handler mHandler = new Handler();
+
     public IndexPresenter(IIndex.View view, IndexFragment fragment) {
         mView = view;
         mFragment = fragment;
@@ -81,7 +86,7 @@ public class IndexPresenter implements IIndex.Presenter {
     private void initToolbar() {
 //        toolbar.setTitle("叮咚活动");
 //        toolbar.setSubtitle("活动创建者");
-        toolbar.setMyCenterTitle("早上好, ElonZhong");
+        toolbar.setMyCenterTitle("晚上好, ElonZhong");
         toolbar.setMyCenterTextColor(mFragment.getResources().getColor(R.color.cookie_black, mFragment.getActivity().getTheme()));
 //        toolbar.setMySettingIcon(mFragment.getResources().getDrawable(R.drawable.role_switch, mFragment.getActivity().getTheme()));
 //        toolbar.setMySettingText("活动创建者");
@@ -109,11 +114,11 @@ public class IndexPresenter implements IIndex.Presenter {
                     case 0:
 //                        return new ErrorFragment("发生了错误", "活动中心还在动工ing");
 //                        return new ActCenterFragment();
-                        return new ActCardFragment();
+                        return new ActCardFragment(ActCardType.FLAG_CREATE);
                     case 1:
 //                        return new ErrorFragment("发生了错误", "签到中心还在动工ing");
 //                        return new AttendCenterFragment();
-                        return new ActCardFragment();
+                        return new ActCardFragment(ActCardType.FLAG_JOIN);
                     case 2:
 //                        return new ErrorFragment("发生了错误", "个人中心还在动工ing");
                         // return new PersonalFragment();
@@ -173,12 +178,6 @@ public class IndexPresenter implements IIndex.Presenter {
                     Toast.makeText(mFragment.getActivity(), "Test: 点击了头像", Toast.LENGTH_LONG).show();
             }
         });
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                return false;
-            }
-        });
         ColorStateList csl = (ColorStateList) mFragment.getResources().getColorStateList(R.color.black_text);  // app_color_blue
         //设置item的条目颜色
         navigationView.setItemTextColor(csl);
@@ -189,13 +188,34 @@ public class IndexPresenter implements IIndex.Presenter {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                //安卓
                 if (PublicConfig.isDebug)
                     Toast.makeText(mFragment.getActivity(), menuItem.getTitle(), Toast.LENGTH_LONG).show();
                 //设置哪个按钮被选中
 //                menuItem.setChecked(true);
                 //关闭侧边栏
 //                drawer.closeDrawers();
+                final String faceCollect = mFragment.getString(R.string.face_collect);
+
+                switch (menuItem.getTitle().toString()) {
+                    case "人脸采集":
+                        drawerLayout.closeDrawers();
+                        mHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent faceCollectIntent = new Intent(mFragment.getActivity(), FaceCollectActivity.class);
+                                mFragment.startActivity(faceCollectIntent);
+                            }
+                        }, 250);
+                        break;
+                    case "更多设置":
+                        break;
+                    case "退出登录":
+                        Intent intent = new Intent(mFragment.getActivity(), LoginActivity.class);
+                        mFragment.startActivity(intent);
+                        mFragment.requireActivity().finish();
+                        break;
+                }
+
                 return false;
             }
         });

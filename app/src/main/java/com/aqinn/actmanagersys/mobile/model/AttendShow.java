@@ -2,6 +2,8 @@ package com.aqinn.actmanagersys.mobile.model;
 
 import org.litepal.crud.LitePalSupport;
 
+import java.util.Random;
+
 /**
  * 签到信息展示类 - 主要用于数据展示以及数据缓存
  *
@@ -49,10 +51,10 @@ public class AttendShow extends LitePalSupport {
         this.startTime = "2021-4-18 21:55";
         this.endTime = "23:59";
         this.attendType = 1;
-        this.shouldAttendCount = 1;
+        this.shouldAttendCount = new Random().nextInt(100) + 1;
         this.haveAttendCount = 1;
-        this.status = 1;
-        this.uStatus = 1;
+        this.status = new Random().nextInt(3) + 1;
+        this.uStatus = new Random().nextInt(2) + 1;
     }
 
     // 仅测试用

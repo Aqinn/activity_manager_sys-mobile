@@ -1,6 +1,4 @@
-package com.aqinn.actmanagersys.mobile.base.QMUI.my;
-
-import android.view.View;
+package com.aqinn.actmanagersys.mobile.actcard;
 
 import com.aqinn.actmanagersys.mobile.base.BaseFragment;
 import com.aqinn.actmanagersys.mobile.model.ActShow;
@@ -15,6 +13,7 @@ import java.util.Map;
 
 /**
  * 活动卡片列表界面 - MVP接口
+ *
  * @author Aqinn
  * @date 2021/4/18 4:32 PM
  */
@@ -27,6 +26,7 @@ public interface IActCard {
         /**
          * 初始化所有组件
          * 在Presenter中保留所有组件的引用
+         *
          * @param fragment
          * @param topBar
          * @param pullRefreshLayout
@@ -37,8 +37,23 @@ public interface IActCard {
 
     interface Model {
         List<QMUISection<SectionHeader_Act, SectionItem_Attend>> getData();
+
         List<ActShow> getActList();
+
         Map<ActShow, List<AttendShow>> getActAttendMap();
+
+        boolean deleteAct(int sectionHeaderIndex);
+
+        boolean updateAct(int sectionHeaderIndex, ActShow newAct);
+
+        // 头插
+        boolean insertAct(int position, ActShow newAct, List<AttendShow> attendList);
+
+        boolean deleteAttend(int sectionHeaderIndex, int sectionItemIndex);
+
+        boolean updateAttend();
+
+        boolean insertAttend(int sectionHeaderIndex, boolean isLoadBefore, AttendShow attend);
     }
 
 }

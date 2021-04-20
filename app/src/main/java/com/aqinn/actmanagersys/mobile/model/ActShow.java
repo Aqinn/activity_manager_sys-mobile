@@ -43,8 +43,8 @@ public class ActShow extends LitePalSupport {
     public ActShow() {
         this.ownerId = 0L;
         this.actId = 0L;
-        this.code = 0L;
-        this.pwd = 0L;
+        this.code = 123456L;
+        this.pwd = 123456L;
         this.creatorId = 0L;
         this.creatorAccount = "creatorAccount";
         this.creatorName = "creatorName";
@@ -82,6 +82,22 @@ public class ActShow extends LitePalSupport {
         this.location = location;
         this.desc = desc;
         this.status = status;
+    }
+
+    public void copyOther(ActShow other) {
+        this.ownerId = other.getOwnerId();
+        this.actId = other.getActId();
+        this.code = other.getCode();
+        this.pwd = other.getPwd();
+        this.creatorId = other.getCreatorId();
+        this.creatorAccount = other.getCreatorAccount();
+        this.creatorName = other.getCreatorName();
+        this.name = other.getName();
+        this.startTime = other.getStartTime();
+        this.endTime = other.getEndTime();
+        this.location = other.getLocation();
+        this.desc = other.getDesc();
+        this.status = other.getStatus();
     }
 
     public Long getOwnerId() {
