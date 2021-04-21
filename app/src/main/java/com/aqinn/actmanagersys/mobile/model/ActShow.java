@@ -50,7 +50,7 @@ public class ActShow extends LitePalSupport {
         this.creatorName = "creatorName";
         this.name = "测试活动名称";
         this.startTime = "2021-4-18 21:55";
-        this.endTime = "23:59";
+        this.endTime = "2021-4-18 23:59";
         this.location = "木铎楼B504";
         this.desc = "我是一段很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的简介";
         this.status = 1;
@@ -202,6 +202,53 @@ public class ActShow extends LitePalSupport {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ActShow actShow = (ActShow) o;
+
+        if (ownerId != null ? !ownerId.equals(actShow.ownerId) : actShow.ownerId != null)
+            return false;
+        if (actId != null ? !actId.equals(actShow.actId) : actShow.actId != null) return false;
+        if (code != null ? !code.equals(actShow.code) : actShow.code != null) return false;
+        if (pwd != null ? !pwd.equals(actShow.pwd) : actShow.pwd != null) return false;
+        if (creatorId != null ? !creatorId.equals(actShow.creatorId) : actShow.creatorId != null)
+            return false;
+        if (creatorAccount != null ? !creatorAccount.equals(actShow.creatorAccount) : actShow.creatorAccount != null)
+            return false;
+        if (creatorName != null ? !creatorName.equals(actShow.creatorName) : actShow.creatorName != null)
+            return false;
+        if (name != null ? !name.equals(actShow.name) : actShow.name != null) return false;
+        if (startTime != null ? !startTime.equals(actShow.startTime) : actShow.startTime != null)
+            return false;
+        if (endTime != null ? !endTime.equals(actShow.endTime) : actShow.endTime != null)
+            return false;
+        if (location != null ? !location.equals(actShow.location) : actShow.location != null)
+            return false;
+        if (desc != null ? !desc.equals(actShow.desc) : actShow.desc != null) return false;
+        return status != null ? status.equals(actShow.status) : actShow.status == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = ownerId != null ? ownerId.hashCode() : 0;
+        result = 31 * result + (actId != null ? actId.hashCode() : 0);
+        result = 31 * result + (code != null ? code.hashCode() : 0);
+        result = 31 * result + (pwd != null ? pwd.hashCode() : 0);
+        result = 31 * result + (creatorId != null ? creatorId.hashCode() : 0);
+        result = 31 * result + (creatorAccount != null ? creatorAccount.hashCode() : 0);
+        result = 31 * result + (creatorName != null ? creatorName.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
+        result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
+        result = 31 * result + (location != null ? location.hashCode() : 0);
+        result = 31 * result + (desc != null ? desc.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        return result;
     }
 
     @Override

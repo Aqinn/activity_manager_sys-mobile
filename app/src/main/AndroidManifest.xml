@@ -40,7 +40,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".index.IndexActivity"></activity>
+        <activity android:name=".index.IndexActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".facecollect.FaceCollectActivity"></activity>
         <activity android:name=".selfattend.SelfAttendActivity"></activity>
         <activity android:name=".videoattend.VideoAttendActivity"></activity>

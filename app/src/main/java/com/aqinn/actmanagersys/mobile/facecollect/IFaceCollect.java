@@ -24,6 +24,8 @@ public interface IFaceCollect {
         boolean isCameraPrepare();
 
         AutoFitTextureView getTextureView();
+
+        void popbackstack();
     }
 
     interface Presenter {
@@ -41,6 +43,13 @@ public interface IFaceCollect {
     }
 
     interface Model extends BaseNetworkService {
+
+        void faceCollect(String f1, String f2, String f3, String f4, FaceCollectCallback callback);
+
+        interface FaceCollectCallback{
+            void onSuccess();
+            void onError();
+        }
 
     }
 

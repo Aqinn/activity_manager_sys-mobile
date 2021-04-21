@@ -8,13 +8,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aqinn.actmanagersys.mobile.R;
+import com.aqinn.actmanagersys.mobile.actcard.ActCardType;
 import com.aqinn.actmanagersys.mobile.base.BaseFragment;
 import com.aqinn.actmanagersys.mobile.base.PublicConfig;
 import com.aqinn.actmanagersys.mobile.model.ActShow;
+import com.aqinn.actmanagersys.mobile.model.InsertActMessage;
 import com.aqinn.actmanagersys.mobile.myview.CustomDatePicker;
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Objects;
 
@@ -60,6 +64,7 @@ public class ActDetailFragment extends BaseFragment implements IActDetail.View {
     private boolean isEditable;
     private boolean isEditableMode;
     private ActShow mAct;
+    private UpdateActCallback mCallback;
     private QMUIAlphaImageButton btMenu;
     private QMUIAlphaImageButton btEdit;
     public CustomDatePicker startTimePicker;
@@ -73,9 +78,14 @@ public class ActDetailFragment extends BaseFragment implements IActDetail.View {
      * @param isEditMode 是否进入编辑模式
      */
     public ActDetailFragment(ActShow item, boolean isEditable, boolean isEditMode) {
+        this(item, isEditable, isEditMode, null);
+    }
+
+    public ActDetailFragment(ActShow item, boolean isEditable, boolean isEditMode, UpdateActCallback callback) {
         mAct = item;
         this.isEditable = isEditable;
         this.isEditableMode = isEditMode;
+        this.mCallback = callback;
     }
 
     @Override
@@ -106,6 +116,8 @@ public class ActDetailFragment extends BaseFragment implements IActDetail.View {
                 if (PublicConfig.isDebug)
                     Toast.makeText(getActivity(), "Test: 编辑按钮", Toast.LENGTH_SHORT).show();
                 ActShow act = new ActShow();
+                if (mAct != null)
+                    act.copyOther(mAct);
                 act.setName(etName.getText().toString());
                 act.setDesc(etIntro.getText().toString());
                 act.setLocation(etLoc.getText().toString());
@@ -117,12 +129,17 @@ public class ActDetailFragment extends BaseFragment implements IActDetail.View {
                         @Override
                         public void onSuccess() {
                             Toast.makeText(getActivity(), "活动创建成功", Toast.LENGTH_SHORT).show();
+                            EventBus.getDefault().post(new InsertActMessage(ActCardType.FLAG_CREATE, act, null));
                             editModeOff();
                             popBackStack();
+                            if (mCallback != null)
+                                mCallback.onSuccess(act);
                         }
 
                         @Override
                         public void onError(IActDetail.ErrorCode errorCode) {
+                            if (mCallback != null)
+                                mCallback.onError();
                             switch (errorCode) {
                                 case ACT_REPEAT:
                                     Toast.makeText(getActivity(), "活动重复创建", Toast.LENGTH_SHORT).show();
@@ -147,10 +164,15 @@ public class ActDetailFragment extends BaseFragment implements IActDetail.View {
                         public void onSuccess() {
                             Toast.makeText(getActivity(), "活动编辑成功", Toast.LENGTH_SHORT).show();
                             editModeOff();
+                            mAct.copyOther(act);
+                            if (mCallback != null)
+                                mCallback.onSuccess(mAct);
                         }
 
                         @Override
                         public void onError(IActDetail.ErrorCode errorCode) {
+                            if (mCallback != null)
+                                mCallback.onError();
                             switch (errorCode) {
                                 case ACT_REPEAT:
                                     Toast.makeText(getActivity(), "活动重复创建", Toast.LENGTH_SHORT).show();
@@ -317,5 +339,7 @@ public class ActDetailFragment extends BaseFragment implements IActDetail.View {
                 break;
         }
     }
+
+
 
 }

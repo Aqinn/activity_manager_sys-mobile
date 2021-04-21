@@ -1,6 +1,7 @@
 package com.aqinn.actmanagersys.mobile.actcard;
 
 import com.aqinn.actmanagersys.mobile.base.BaseFragment;
+import com.aqinn.actmanagersys.mobile.base.BaseNetworkService;
 import com.aqinn.actmanagersys.mobile.model.ActShow;
 import com.aqinn.actmanagersys.mobile.model.AttendShow;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
@@ -33,27 +34,112 @@ public interface IActCard {
          * @param sectionLayout
          */
         void init(BaseFragment fragment, QMUITopBarLayout topBar, QMUIPullRefreshLayout pullRefreshLayout, QMUIStickySectionLayout sectionLayout);
+
+        void insertAct(int position, ActShow act, List<AttendShow> attendList);
     }
 
-    interface Model {
+    interface Model extends BaseNetworkService {
         List<QMUISection<SectionHeader_Act, SectionItem_Attend>> getData();
 
         List<ActShow> getActList();
 
         Map<ActShow, List<AttendShow>> getActAttendMap();
 
-        boolean deleteAct(int sectionHeaderIndex);
+        void initData(InitDataCallback callback);
 
-        boolean updateAct(int sectionHeaderIndex, ActShow newAct);
+        void refreshData(InitDataCallback callback);
 
-        // 头插
-        boolean insertAct(int position, ActShow newAct, List<AttendShow> attendList);
+        void deleteAct(int sectionHeaderIndex, DeleteActCallback callback);
 
-        boolean deleteAttend(int sectionHeaderIndex, int sectionItemIndex);
+        void updateAct(int sectionHeaderIndex, ActShow newAct, UpdateActCallback callback);
 
-        boolean updateAttend();
+        void insertAct(int position, ActShow newAct, List<AttendShow> attendList, InsertActCallback callback);
 
-        boolean insertAttend(int sectionHeaderIndex, boolean isLoadBefore, AttendShow attend);
+        void quitAct(int sectionHeaderIndex, QuitActCallback callback);
+
+        void deleteAttend(int sectionHeaderIndex, int sectionItemIndex, DeleteAttendCallback callback);
+
+        void updateAttendType(int sectionHeaderIndex, int sectionItemIndex, AttendShow attend, UpdateAttendTypeCallback callback);
+
+        void updateAttendTime(int sectionHeaderIndex, int sectionItemIndex, AttendShow attend, UpdateAttendTimeCallback callback);
+
+        void insertAttend(int sectionHeaderIndex, boolean isLoadBefore, AttendShow attend, InsertAttendCallback callback);
+
+        interface InitDataCallback {
+            void onSuccess(String msg);
+
+            void onError(ErrorCode errorCode);
+        }
+
+        interface RefreshDataCallback {
+            void onSuccess(String msg);
+
+            void onError(ErrorCode errorCode);
+        }
+
+        interface DeleteActCallback {
+            void onSuccess();
+
+            void onError();
+        }
+
+        interface UpdateActCallback {
+            void onSuccess();
+
+            void onError();
+        }
+
+        interface InsertActCallback {
+            void onSuccess();
+
+            void onError();
+        }
+
+        interface QuitActCallback {
+            void onSuccess();
+
+            void onError();
+        }
+
+        interface DeleteAttendCallback {
+            void onSuccess();
+
+            void onError();
+        }
+
+        interface UpdateAttendTimeCallback {
+            void onSuccess();
+
+            void onError();
+        }
+
+        interface UpdateAttendTypeCallback {
+            void onSuccess();
+
+            void onError();
+        }
+
+        interface InsertAttendCallback {
+            void onSuccess(AttendShow attend);
+
+            void onError();
+        }
+
+    }
+
+    enum ErrorCode {
+        INCOMPLETE_DATA("不完整的数据"),
+        FAIL_LOAD_CREATE_ACT("创建的活动加载失败"),
+        FAIL_LOAD_JOIN_ACT("加入的活动加载失败"),
+        FAIL_LOAD_CREATE_ATTEND("创建的签到加载失败"),
+        FAIL_LOAD_JOIN_ATTEND("加入的签到加载失败"),
+        UNKNOWN_RESPONSE_ERROR("未知响应错误"),
+        UNKNOWN_NETWORK_ERROR("未知网络错误");
+        public String desc;
+
+        ErrorCode(String desc) {
+            this.desc = desc;
+        }
     }
 
 }

@@ -5,6 +5,10 @@ import android.view.View;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.aqinn.actmanagersys.mobile.base.BaseFragment;
+import com.aqinn.actmanagersys.mobile.base.BaseNetworkService;
+import com.aqinn.actmanagersys.mobile.model.ActShow;
+import com.aqinn.actmanagersys.mobile.model.InsertActMessage;
+import com.aqinn.actmanagersys.mobile.model.JoinActResult;
 import com.aqinn.actmanagersys.mobile.myview.TitleCenterToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
@@ -25,10 +29,17 @@ public interface IIndex {
     interface Presenter {
         void init(TitleCenterToolbar toolbar, QMUIViewPager pager, QMUITabSegment tabs,
                   DrawerLayout drawerLayout, NavigationView navigationView);
+        void resetToolbarText();
         void showCreateMenuDialog(android.view.View view);
     }
 
-    interface Model {
+    interface Model extends BaseNetworkService {
+        void joinAct(String code, String pwd, JoinActCallback callback);
+    }
+
+    interface JoinActCallback{
+        void onSuccess(JoinActResult joinActResult);
+        void onError();
     }
 
 

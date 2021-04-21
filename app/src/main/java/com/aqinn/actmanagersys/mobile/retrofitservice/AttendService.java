@@ -4,6 +4,7 @@ import com.aqinn.actmanagersys.mobile.dto.ApiResult;
 import com.aqinn.actmanagersys.mobile.model.AttendShow;
 
 import io.reactivex.Observable;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -32,6 +33,9 @@ public interface AttendService {
     Observable<ApiResult<AttendShow>> createAttend(@Path("actId") Long actId, @Field("startTime") String startTime,
                                                    @Field("endTime") String endTime, @Field("type") Integer type);
 
+    @DELETE("/attend/{attendId}")
+    Observable<ApiResult> deleteAttend(@Path("attendId") Long attendId);
+
     /**
      * 修改签到时间
      *
@@ -48,12 +52,12 @@ public interface AttendService {
     /**
      * 修改签到类型
      *
-     * @param actId
+     * @param attendId
      * @param type
      * @return
      */
     @FormUrlEncoded
     @PUT("/attend/{attendId}/type")
-    Observable<ApiResult> updateAttendType(@Path("attendId") Long actId, @Field("type") Integer type);
+    Observable<ApiResult> updateAttendType(@Path("attendId") Long attendId, @Field("type") Integer type);
 
 }

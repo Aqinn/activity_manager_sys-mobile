@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,10 +17,13 @@ import com.aqinn.actmanagersys.mobile.base.QMUI.QDLoadingItemView;
 import com.aqinn.actmanagersys.mobile.model.ActShow;
 import com.aqinn.actmanagersys.mobile.model.AttendShow;
 import com.aqinn.actmanagersys.mobile.myview.AnimationImageView;
+import com.aqinn.actmanagersys.mobile.utils.FormatUtil;
 import com.aqinn.actmanagersys.mobile.utils.ParseUtil;
 import com.qmuiteam.qmui.widget.section.QMUIDefaultStickySectionAdapter;
 import com.qmuiteam.qmui.widget.section.QMUISection;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,7 +100,15 @@ public class ActCardSectionAdapter extends QMUIDefaultStickySectionAdapter<Secti
         SectionHeader_Act head = section.getHeader();
         ActShow act = head.getAct();
         realHolder.tvName.setText(act.getName());
-        realHolder.tvTime.setText(act.getStartTime() + " -> " + act.getEndTime());
+        String shortEndTime = act.getEndTime();
+        Date start = new Date(FormatUtil.str2Long(act.getStartTime(), true));
+        Date end = new Date(FormatUtil.str2Long(act.getEndTime(), true));
+        if (start.getYear() == end.getYear() &&
+                start.getMonth() == end.getMonth() &&
+                start.getDate() == end.getDate()) {
+            shortEndTime = act.getEndTime().substring(10);
+        }
+        realHolder.tvTime.setText(act.getStartTime() + " -> " + shortEndTime);
         realHolder.tvLoc.setText(act.getLocation());
         realHolder.tvIntro.setText(BaseApplication.getContext().getString(R.string.act_desc) + act.getDesc());
         String statusText = "";
@@ -197,7 +209,15 @@ public class ActCardSectionAdapter extends QMUIDefaultStickySectionAdapter<Secti
                 + (attend.getShouldAttendCount() - attend.getHaveAttendCount()));
         String status = mActAttendStatusMap.get(attend.getStatus());
         realHolder.tvStatus.setText(status);
-        realHolder.tvTime.setText(attend.getStartTime() + " -> " + attend.getEndTime());
+        String shortEndTime = attend.getEndTime();
+        Date start = new Date(FormatUtil.str2Long(attend.getStartTime(), true));
+        Date end = new Date(FormatUtil.str2Long(attend.getEndTime(), true));
+        if (start.getYear() == end.getYear() &&
+                start.getMonth() == end.getMonth() &&
+                start.getDate() == end.getDate()) {
+            shortEndTime = attend.getEndTime().substring(10);
+        }
+        realHolder.tvTime.setText(attend.getStartTime() + " -> " + shortEndTime);
         int statusTextColor = R.color.thing_default;
         if ("未开始".equals(status)) {
             statusTextColor = R.color.thing_not_begin;
@@ -207,10 +227,11 @@ public class ActCardSectionAdapter extends QMUIDefaultStickySectionAdapter<Secti
             statusTextColor = R.color.thing_finish;
         }
         realHolder.tvStatus.setTextColor(BaseApplication.getContext().getResources().getColor(statusTextColor));
-        if (mType == ActCardType.FLAG_CREATE)
-            realHolder.tvUStatus.setText("");
-        else if (mType == ActCardType.FLAG_JOIN)
-            realHolder.tvUStatus.setText(mUStatusMap.get(attend.getuStatus()));
+        if (mType == ActCardType.FLAG_CREATE) {
+            realHolder.ivUStatus.setVisibility(View.INVISIBLE);
+        } else if (mType == ActCardType.FLAG_JOIN) {
+            realHolder.ivUStatus.setVisibility(attend.getuStatus() == 1 ? View.VISIBLE : View.INVISIBLE);
+        }
     }
 
     public static class SectionHeaderViewHolder extends ViewHolder {
@@ -221,7 +242,7 @@ public class ActCardSectionAdapter extends QMUIDefaultStickySectionAdapter<Secti
         TextView tvTime;
         @BindView(R.id.tv_loc)
         TextView tvLoc;
-        //        @BindView(R.id.tv_intro_text)
+//        @BindView(R.id.tv_intro_text)
 //        TextView tvIntroText;
         @BindView(R.id.tv_intro)
         TextView tvIntro;
@@ -247,8 +268,8 @@ public class ActCardSectionAdapter extends QMUIDefaultStickySectionAdapter<Secti
         TextView tvCount;
         @BindView(R.id.tv_status)
         TextView tvStatus;
-        @BindView(R.id.tv_ustatus)
-        TextView tvUStatus;
+        @BindView(R.id.iv_ustatus)
+        ImageView ivUStatus;
         @BindView(R.id.cl_attend_info)
         ConstraintLayout clAttendInfo;
         @BindView(R.id.tv_time)

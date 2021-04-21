@@ -21,7 +21,8 @@ public class PublicConfig {
     /**
      * 请求的根URL
      */
-    public static final String BASE_URL = "http://121.5.162.173:8080/";
+//    public static final String BASE_URL = "http://121.5.162.173:8080/";
+    public static final String BASE_URL = "http://192.168.43.78:8080/";
 
     /**
      * 弹窗样式
@@ -32,5 +33,10 @@ public class PublicConfig {
      * 临时的TAG
      */
     public static final String TEMP_TAG = "temp_tag";
+
+    /**
+     * 同一个人的两条人脸特征向量需要满足的阈值
+     */
+    public static final double SAME_FACE_THRESHOLD = 0.5;
 
 }

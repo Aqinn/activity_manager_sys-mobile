@@ -3,6 +3,7 @@ package com.aqinn.actmanagersys.mobile;
 import android.util.Log;
 
 import com.aqinn.actmanagersys.mobile.dto.ApiResult;
+import com.aqinn.actmanagersys.mobile.model.ActShow;
 import com.aqinn.actmanagersys.mobile.model.User;
 import com.aqinn.actmanagersys.mobile.test.TestService;
 import com.aqinn.actmanagersys.mobile.utils.RetrofitUtil;
@@ -70,6 +71,16 @@ public class ExampleUnitTest {
                         Log.d(TAG, "onComplete: ");
                     }
                 });
+    }
+
+    @Test
+    public void testEquals() {
+        ActShow act1 = new ActShow();
+        act1.setName("xixi");
+        act1.setLocation(null);
+        ActShow act2 = new ActShow();
+        act2.setName("xixi");
+        System.out.println(act1.equals(act2));
     }
 
 }

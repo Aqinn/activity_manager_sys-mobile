@@ -15,6 +15,7 @@
         android:hint="@string/join_act_code_hint"
         android:textColorHint="@color/grey_text"
         android:maxLength="6"
+        android:theme="@style/NormalEditText"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -27,6 +28,7 @@
         android:hint="@string/join_act_pwd_hint"
         android:textColorHint="@color/grey_text"
         android:maxLength="6"
+        android:theme="@style/NormalEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_code" />
 

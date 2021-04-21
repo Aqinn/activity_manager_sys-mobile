@@ -21,6 +21,14 @@ public interface IActDetail {
 //
 //            void onCancel();
 //        }
+        /**
+         * 更新活动后的回调
+         */
+        public interface UpdateActCallback {
+            void onSuccess(ActShow act);
+
+            void onError();
+        }
     }
 
     interface Presenter {

@@ -13,8 +13,10 @@ import android.os.Message;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
 import com.aqinn.actmanagersys.mobile.R;
+import com.aqinn.actmanagersys.mobile.base.BaseApplication;
 import com.aqinn.actmanagersys.mobile.base.PublicConfig;
 import com.aqinn.actmanagersys.mobile.myview.AutoFitTextureView;
 import com.aqinn.actmanagersys.mobile.utils.FileUtil;
@@ -37,6 +39,9 @@ public class FaceCollectPresenter implements IFaceCollect.Presenter {
     private static final String TAG = "FaceCollectPresenter";
 
     private IFaceCollect.View mView;
+    private IFaceCollect.Model mModel;
+
+    private Handler mHandler = new Handler();
 
     // 人脸识别模型
     private FaceRecognize mFaceRecognize;
@@ -87,6 +92,7 @@ public class FaceCollectPresenter implements IFaceCollect.Presenter {
 
     public FaceCollectPresenter(IFaceCollect.View view) {
         mView = view;
+        mModel = new FaceCollectModel();
         mTextureView = mView.getTextureView();
     }
 
@@ -120,8 +126,7 @@ public class FaceCollectPresenter implements IFaceCollect.Presenter {
                 synchronized (recognizeCount) {
                     if (currentValue == 20 || currentValue == 40 || currentValue == 60 || currentValue == 80) {
                         // 人脸特征向量存起来
-                        faceFeatures[recognizeCount] = nowFaceFeature;
-                        ++recognizeCount;
+                        faceFeatures[recognizeCount++] = nowFaceFeature;
                     }
                 }
             }
@@ -142,6 +147,35 @@ public class FaceCollectPresenter implements IFaceCollect.Presenter {
     }
 
     private void onFaceCollectFinish() {
+        Toast.makeText(BaseApplication.getContext(), "人脸采集完成，开始发送网络请求", Toast.LENGTH_SHORT).show();
+        mModel.faceCollect(
+                ParseUtil.arr2String(faceFeatures[0]),
+                ParseUtil.arr2String(faceFeatures[1]),
+                ParseUtil.arr2String(faceFeatures[2]),
+                ParseUtil.arr2String(faceFeatures[3]),
+                new IFaceCollect.Model.FaceCollectCallback() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(BaseApplication.getContext(), "人脸采集成功，两秒后退出", Toast.LENGTH_SHORT).show();
+                        mHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mView.popbackstack();
+                            }
+                        }, 2000);
+                    }
+
+                    @Override
+                    public void onError() {
+                        Toast.makeText(BaseApplication.getContext(), "人脸采集失败，两秒后退出", Toast.LENGTH_SHORT).show();
+                        mHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mView.popbackstack();
+                            }
+                        }, 2000);
+                    }
+                });
         // 停止推理线程
         stopInferThread();
         // 清理人脸检测框
@@ -216,9 +250,9 @@ public class FaceCollectPresenter implements IFaceCollect.Presenter {
                     FaceInfo faceInfo = ParseUtil.floatArr2FaceInfo(result[i]);
                     faceInfos[i] = faceInfo;
                 }
-//                nowFaceFeature = mFaceRecognize.recognize(ParseUtil.getPixelsRGBA(bitmap), mTextureView.getWidth(), mTextureView.getHeight(), ParseUtil.getUsefulLandmarksFromFaceInfo(faceInfos[0]));
                 if (PublicConfig.isDebug)
                     drawRectBySurface(faceInfos);
+                nowFaceFeature = mFaceRecognize.recognize(ParseUtil.getPixelsRGBA(bitmap), mTextureView.getWidth(), mTextureView.getHeight(), ParseUtil.getUsefulLandmarksFromFaceInfo(faceInfos[0]));
                 if (progressCount < 100) {
                     boolean isRightLocation = verifyFaceLocation(faceInfos[0]);
                     if (isRightLocation) {

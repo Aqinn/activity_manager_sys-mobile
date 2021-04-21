@@ -15,6 +15,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -55,14 +57,20 @@ public class IndexFragment extends BaseFragment implements IIndex.View {
     @Override
     public void onStart() {
         super.onStart();
-        // 这两句话（下面那句在onStop()）不要删，用于修改主页Fragment的状态栏颜色，删了别的地方就没有沉浸式状态栏的效果了
+        // 这句话不要删，用于修改主页Fragment的状态栏颜色，删了别的地方就没有沉浸式状态栏的效果了
         comeIndexChangeStatusBarTextColor();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.resetToolbarText();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        // 这两句话（下面那句在onStop()）不要删，用于修改主页Fragment的状态栏颜色，删了别的地方就没有沉浸式状态栏的效果了
+        // 这句话不要删，用于修改主页Fragment的状态栏颜色，删了别的地方就没有沉浸式状态栏的效果了
         leaveIndexChangeStatusBarTextColor();
     }
 

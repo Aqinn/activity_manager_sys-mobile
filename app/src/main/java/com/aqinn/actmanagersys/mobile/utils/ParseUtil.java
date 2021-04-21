@@ -121,7 +121,7 @@ public class ParseUtil {
         while (it.hasNext()) {
             Map.Entry<Integer, String> e = it.next();
             if ((e.getKey() & type) == e.getKey()) {
-                sb.append(e.getValue());
+                sb.append(e.getValue() + " ");
             }
         }
         return sb.toString();

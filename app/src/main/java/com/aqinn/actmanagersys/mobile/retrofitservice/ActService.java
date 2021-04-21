@@ -38,6 +38,7 @@ public interface ActService {
     /**
      * 修改活动
      *
+     * @param actId
      * @param name
      * @param desc
      * @param location
@@ -46,10 +47,10 @@ public interface ActService {
      * @return
      */
     @FormUrlEncoded
-    @PUT("/act")
-    Observable<ApiResult> updateAct(@Field("name") String name, @Field("desc") String desc,
-                                    @Field("location") String location, @Field("startTime") String startTime,
-                                    @Field("endTime") String endTime);
+    @PUT("/act/{actId}")
+    Observable<ApiResult> updateAct(@Path("actId") Long actId, @Field("name") String name,
+                                    @Field("desc") String desc, @Field("location") String location,
+                                    @Field("startTime") String startTime, @Field("endTime") String endTime);
 
     /**
      * 开启活动
@@ -71,6 +72,7 @@ public interface ActService {
 
     /**
      * 删除活动
+     *
      * @param actId
      * @return
      */

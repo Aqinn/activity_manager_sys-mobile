@@ -25,6 +25,9 @@ import com.aqinn.actmanagersys.mobile.facecollect.FaceCollectActivity;
 import com.aqinn.actmanagersys.mobile.index.actcenter.actdetail.ActDetailFragment;
 import com.aqinn.actmanagersys.mobile.index.actcenter.joinact.JoinActDialogBuilder;
 import com.aqinn.actmanagersys.mobile.login.LoginActivity;
+import com.aqinn.actmanagersys.mobile.model.ActShow;
+import com.aqinn.actmanagersys.mobile.model.InsertActMessage;
+import com.aqinn.actmanagersys.mobile.model.JoinActResult;
 import com.aqinn.actmanagersys.mobile.myview.TitleCenterToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.qmuiteam.qmui.arch.QMUIFragment;
@@ -38,8 +41,12 @@ import com.qmuiteam.qmui.widget.popup.QMUIPopup;
 import com.qmuiteam.qmui.widget.popup.QMUIPopups;
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -52,6 +59,7 @@ import java.util.Objects;
 public class IndexPresenter implements IIndex.Presenter {
 
     private IIndex.View mView;
+    private IIndex.Model mModel;
 
     QMUIViewPager pager;
     QMUITabSegment tabs;
@@ -68,6 +76,7 @@ public class IndexPresenter implements IIndex.Presenter {
 
     public IndexPresenter(IIndex.View view, IndexFragment fragment) {
         mView = view;
+        mModel = new IndexModel();
         mFragment = fragment;
     }
 
@@ -86,7 +95,7 @@ public class IndexPresenter implements IIndex.Presenter {
     private void initToolbar() {
 //        toolbar.setTitle("叮咚活动");
 //        toolbar.setSubtitle("活动创建者");
-        toolbar.setMyCenterTitle("晚上好, ElonZhong");
+        resetToolbarText();
         toolbar.setMyCenterTextColor(mFragment.getResources().getColor(R.color.cookie_black, mFragment.getActivity().getTheme()));
 //        toolbar.setMySettingIcon(mFragment.getResources().getDrawable(R.drawable.role_switch, mFragment.getActivity().getTheme()));
 //        toolbar.setMySettingText("活动创建者");
@@ -104,6 +113,24 @@ public class IndexPresenter implements IIndex.Presenter {
 //            }
 //        });
         // mFragment.getBaseFragmentActivity().setSupportActionBar(toolbar);  // 将toolbar与ActionBar关联
+    }
+
+    @Override
+    public void resetToolbarText() {
+        int i = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        String time;
+        if (i < 5) {
+            time = mFragment.getResources().getString(R.string.good_night);
+        } else if (i < 12) {
+            time = mFragment.getResources().getString(R.string.good_morning);
+        } else if (i < 13) {
+            time = mFragment.getResources().getString(R.string.good_noon);
+        } else if (i < 18) {
+            time = mFragment.getResources().getString(R.string.good_afternoon);
+        } else {
+            time = mFragment.getResources().getString(R.string.good_night);
+        }
+        toolbar.setMyCenterTitle(time + ", ElonZhong");
     }
 
     private void initPagerAndTab() {
@@ -284,6 +311,18 @@ public class IndexPresenter implements IIndex.Presenter {
                             Toast.makeText(fragment.getActivity(), "请正确填写活动代码或密码", Toast.LENGTH_SHORT).show();
                             return;
                         }
+                        mModel.joinAct(builder.getCode(), builder.getPwd(), new IIndex.JoinActCallback() {
+                            @Override
+                            public void onSuccess(JoinActResult joinActResult) {
+                                EventBus.getDefault().post(new InsertActMessage(ActCardType.FLAG_JOIN, joinActResult.getAct(), joinActResult.getAttendList()));
+                                Toast.makeText(mFragment.getActivity(), "加入活动成功", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onError() {
+                                Toast.makeText(mFragment.getActivity(), "加入活动失败", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                         dialog.dismiss();
                     }
                 })

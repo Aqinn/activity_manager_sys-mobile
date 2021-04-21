@@ -101,8 +101,8 @@ public class LoginActivity extends BaseFragmentActivity implements ILogin.View {
 
     @Override
     public void loginSuccess() {
-        if (PublicConfig.isDebug)
-            Toast.makeText(this, "Test: 登录成功，跳转至首页", Toast.LENGTH_SHORT).show();
+//        if (PublicConfig.isDebug)
+//            Toast.makeText(this, "Test: 登录成功，跳转至首页", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, IndexActivity.class);
         startActivity(intent);
         finish();

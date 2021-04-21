@@ -49,7 +49,7 @@ public class AttendShow extends LitePalSupport {
         this.actId = 0L;
         this.name = "name";
         this.startTime = "2021-4-18 21:55";
-        this.endTime = "23:59";
+        this.endTime = "2021-4-18 23:59";
         this.attendType = 1;
         this.shouldAttendCount = new Random().nextInt(100) + 1;
         this.haveAttendCount = 1;
@@ -93,6 +93,20 @@ public class AttendShow extends LitePalSupport {
         this.haveAttendCount = haveAttendCount;
         this.status = status;
         this.uStatus = uStatus;
+    }
+
+    public void copyOther(AttendShow other) {
+        this.ownerId = other.ownerId;
+        this.attendId = other.attendId;
+        this.actId = other.actId;
+        this.name = other.name;
+        this.startTime = other.startTime;
+        this.endTime = other.endTime;
+        this.attendType = other.attendType;
+        this.shouldAttendCount = other.shouldAttendCount;
+        this.haveAttendCount = other.haveAttendCount;
+        this.status = other.status;
+        this.uStatus = other.uStatus;
     }
 
     public Long getOwnerId() {
@@ -181,5 +195,63 @@ public class AttendShow extends LitePalSupport {
 
     public void setuStatus(Integer uStatus) {
         this.uStatus = uStatus;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AttendShow that = (AttendShow) o;
+
+        if (ownerId != null ? !ownerId.equals(that.ownerId) : that.ownerId != null) return false;
+        if (attendId != null ? !attendId.equals(that.attendId) : that.attendId != null)
+            return false;
+        if (actId != null ? !actId.equals(that.actId) : that.actId != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (startTime != null ? !startTime.equals(that.startTime) : that.startTime != null)
+            return false;
+        if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
+        if (attendType != null ? !attendType.equals(that.attendType) : that.attendType != null)
+            return false;
+        if (shouldAttendCount != null ? !shouldAttendCount.equals(that.shouldAttendCount) : that.shouldAttendCount != null)
+            return false;
+        if (haveAttendCount != null ? !haveAttendCount.equals(that.haveAttendCount) : that.haveAttendCount != null)
+            return false;
+        if (status != null ? !status.equals(that.status) : that.status != null) return false;
+        return uStatus != null ? uStatus.equals(that.uStatus) : that.uStatus == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = ownerId != null ? ownerId.hashCode() : 0;
+        result = 31 * result + (attendId != null ? attendId.hashCode() : 0);
+        result = 31 * result + (actId != null ? actId.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
+        result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
+        result = 31 * result + (attendType != null ? attendType.hashCode() : 0);
+        result = 31 * result + (shouldAttendCount != null ? shouldAttendCount.hashCode() : 0);
+        result = 31 * result + (haveAttendCount != null ? haveAttendCount.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (uStatus != null ? uStatus.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "AttendShow{" +
+                "ownerId=" + ownerId +
+                ", attendId=" + attendId +
+                ", actId=" + actId +
+                ", name='" + name + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", attendType=" + attendType +
+                ", shouldAttendCount=" + shouldAttendCount +
+                ", haveAttendCount=" + haveAttendCount +
+                ", status=" + status +
+                ", uStatus=" + uStatus +
+                '}';
     }
 }

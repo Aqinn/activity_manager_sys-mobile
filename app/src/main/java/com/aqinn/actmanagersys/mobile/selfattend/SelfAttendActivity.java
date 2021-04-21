@@ -1,13 +1,16 @@
 package com.aqinn.actmanagersys.mobile.selfattend;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.SurfaceView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aqinn.actmanagersys.mobile.R;
 import com.aqinn.actmanagersys.mobile.base.BaseFragmentActivity;
+import com.aqinn.actmanagersys.mobile.base.PublicConfig;
 import com.aqinn.actmanagersys.mobile.camera.CameraOperatorPresenter;
 import com.aqinn.actmanagersys.mobile.camera.ICameraOperator;
 import com.aqinn.actmanagersys.mobile.myview.AutoFitTextureView;
@@ -21,7 +24,7 @@ import butterknife.ButterKnife;
  * @author Aqinn
  * @date 2021/4/7 10:58 AM
  */
-public class SelfAttendActivity extends BaseFragmentActivity implements ISelfAttend.View, ICameraOperator.View{
+public class SelfAttendActivity extends BaseFragmentActivity implements ISelfAttend.View, ICameraOperator.View {
 
     @BindView(R.id.texture_view)
     AutoFitTextureView textureView;
@@ -41,9 +44,16 @@ public class SelfAttendActivity extends BaseFragmentActivity implements ISelfAtt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_self_attend);
+        Intent intent = getIntent();
+        long attendId = intent.getLongExtra("attendId", -1L);
+        if (attendId == -1) {
+            if (PublicConfig.isDebug)
+                Toast.makeText(this, "Test: 进入自助签到失败，没有传入签到ID", Toast.LENGTH_SHORT).show();
+            finish();
+        }
         ButterKnife.bind(this);
         mCameraPresenter = new CameraOperatorPresenter(this);
-        mSelfAttendPresenter = new SelfAttendPresenter(this);
+        mSelfAttendPresenter = new SelfAttendPresenter(this, attendId);
         initView();
         initModel();
     }
@@ -81,7 +91,7 @@ public class SelfAttendActivity extends BaseFragmentActivity implements ISelfAtt
     }
 
 
-    private void prepareAttend(){
+    private void prepareAttend() {
         mCameraPresenter.startCaptureThread();
         mSelfAttendPresenter.startInferThread();
         mCameraPresenter.openCamera();
@@ -100,14 +110,14 @@ public class SelfAttendActivity extends BaseFragmentActivity implements ISelfAtt
 
     @Override
     public boolean isCameraPrepare() {
-        if (mSelfAttendPresenter == null || mCameraPresenter == null)
-            return false;
-        return mSelfAttendPresenter.isInferAble() && mCameraPresenter.isCaptureAble();
+        return mCameraPresenter.isCameraPrepare(getApplicationContext());
     }
 
     @Override
     public boolean isAttendAble() {
-        return mCameraPresenter.isCameraPrepare(getApplicationContext());
+        if (mSelfAttendPresenter == null || mCameraPresenter == null)
+            return false;
+        return mSelfAttendPresenter.isInferAble() && mCameraPresenter.isCaptureAble();
     }
 
     @Override

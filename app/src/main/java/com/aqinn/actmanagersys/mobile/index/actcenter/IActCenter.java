@@ -4,6 +4,8 @@ import com.aqinn.actmanagersys.mobile.base.BaseFragment;
 import com.aqinn.actmanagersys.mobile.base.BaseFragmentActivity;
 import com.aqinn.actmanagersys.mobile.base.BaseNetworkService;
 import com.aqinn.actmanagersys.mobile.model.ActShow;
+import com.aqinn.actmanagersys.mobile.model.InsertActMessage;
+import com.aqinn.actmanagersys.mobile.model.JoinActResult;
 import com.youth.banner.Banner;
 
 /**
@@ -29,7 +31,7 @@ public interface IActCenter {
         void joinAct(String code, String pwd, Callback callback);
 
         interface Callback {
-            void onSuccess(ActShow act);
+            void onSuccess(JoinActResult joinActResult);
 
             void onError(ErrorCode errorCode);
         }

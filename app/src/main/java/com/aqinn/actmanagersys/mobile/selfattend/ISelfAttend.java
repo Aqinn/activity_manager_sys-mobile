@@ -6,6 +6,8 @@ import android.view.SurfaceView;
 import com.aqinn.actmanagersys.mobile.base.BaseNetworkService;
 import com.aqinn.actmanagersys.mobile.myview.AutoFitTextureView;
 
+import retrofit2.http.Field;
+
 /**
  * 自助签到 - MVP接口
  *
@@ -37,6 +39,14 @@ public interface ISelfAttend {
     }
 
     interface Model extends BaseNetworkService {
+
+        void selfAttend(Long attendId, String feature, SelfAttendCallback callback);
+
+        interface SelfAttendCallback {
+            void onSuccess();
+
+            void onError();
+        }
 
     }
 

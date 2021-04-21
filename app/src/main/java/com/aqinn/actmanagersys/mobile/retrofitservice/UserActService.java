@@ -2,6 +2,7 @@ package com.aqinn.actmanagersys.mobile.retrofitservice;
 
 import com.aqinn.actmanagersys.mobile.dto.ApiResult;
 import com.aqinn.actmanagersys.mobile.model.ActShow;
+import com.aqinn.actmanagersys.mobile.model.JoinActResult;
 
 import io.reactivex.Observable;
 import retrofit2.http.DELETE;
@@ -27,7 +28,7 @@ public interface UserActService {
      */
     @FormUrlEncoded
     @POST("/useract")
-    Observable<ApiResult<ActShow>> joinAct(@Field("code") String code, @Field("pwd") String pwd);
+    Observable<ApiResult<JoinActResult>> joinAct(@Field("code") String code, @Field("pwd") String pwd);
 
     /**
      * 退出活动

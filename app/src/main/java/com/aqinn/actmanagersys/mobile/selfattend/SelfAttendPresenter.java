@@ -2,7 +2,11 @@ package com.aqinn.actmanagersys.mobile.selfattend;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PixelFormat;
+import android.graphics.PorterDuff;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
@@ -27,9 +31,12 @@ import java.io.File;
  */
 public class SelfAttendPresenter implements ISelfAttend.Presenter {
 
-    private static final String TAG = "VideoAttendPresenter";
+    private static final String TAG = "SelfAttendPresenter";
 
     private ISelfAttend.View mView;
+    private ISelfAttend.Model mModel;
+
+    private Long mAttendId;
 
     // 人脸识别模型
     private FaceRecognize mFaceRecognize;
@@ -37,17 +44,45 @@ public class SelfAttendPresenter implements ISelfAttend.Presenter {
     // 推理线程相关
     private HandlerThread mInferThread;
     private Handler mInferHandler;
+    private HandlerThread mNetworkThread;
+    private Handler mNetworkHandler;
     private final Object lock = new Object();  // 开关推理线程 - 同步变量
     private boolean isInfering = false;
     private float[] nowFaceFeature;
+    private float[] preFaceFeature = null;
 
     // 画面呈现相关
     private SurfaceView mSurfaceView;
     private SurfaceHolder mSurfaceHolder;
     private AutoFitTextureView mTextureView;
 
-    public SelfAttendPresenter(ISelfAttend.View view) {
+    // 画笔相关 - 绘制人脸检测框
+    private static Paint rectPaint = new Paint();
+    private static Paint pointPaint = new Paint();
+    private static Paint minRecPaint = new Paint();
+    private static Paint maxRecPaint = new Paint();
+
+    // 画笔相关 - 绘制人脸检测框
+    static {
+        rectPaint.setColor(Color.GREEN);
+        rectPaint.setStyle(Paint.Style.STROKE);
+        rectPaint.setStrokeWidth(4);
+        pointPaint.setColor(Color.GREEN);
+        pointPaint.setStyle(Paint.Style.FILL);
+
+        minRecPaint.setColor(Color.YELLOW);
+        minRecPaint.setStrokeWidth(4);
+        minRecPaint.setStyle(Paint.Style.STROKE);
+
+        maxRecPaint.setColor(Color.RED);
+        maxRecPaint.setStrokeWidth(4);
+        maxRecPaint.setStyle(Paint.Style.STROKE);
+    }
+
+    public SelfAttendPresenter(ISelfAttend.View view, Long attendId) {
         mView = view;
+        mAttendId = attendId;
+        mModel = new SelfAttendModel();
         mTextureView = mView.getTextureView();
     }
 
@@ -83,6 +118,10 @@ public class SelfAttendPresenter implements ISelfAttend.Presenter {
             isInfering = true;
         }
         mInferHandler.post(periodicInfer);
+        // TODO 人脸识别和网络请求线程也放这里好了。但是为了最高性能，人脸识别与网络请求应该分开两个线程
+        mNetworkThread = new HandlerThread("recognizeAndNetwork");
+        mNetworkThread.start();
+        mNetworkHandler = new Handler(mNetworkThread.getLooper());
     }
 
     // 推理线程需要做的事情
@@ -113,6 +152,7 @@ public class SelfAttendPresenter implements ISelfAttend.Presenter {
                 Log.d(TAG, "predict: 用以预测的 Bitmap 尺寸（未Resize） w:" + bitmap.getWidth() + ", h:" + bitmap.getHeight());
             float[][] result = mFaceRecognize.detectTest(bitmap, bitmap.getWidth(), bitmap.getHeight(), 3);
             if (result == null) {
+                drawRectBySurface(null);
                 return;
             }
             if (PublicConfig.isDebug)
@@ -123,12 +163,62 @@ public class SelfAttendPresenter implements ISelfAttend.Presenter {
                     FaceInfo faceInfo = ParseUtil.floatArr2FaceInfo(result[i]);
                     faceInfos[i] = faceInfo;
                 }
-                nowFaceFeature = mFaceRecognize.recognize(ParseUtil.getPixelsRGBA(bitmap), mTextureView.getWidth(), mTextureView.getHeight(), ParseUtil.getUsefulLandmarksFromFaceInfo(faceInfos[0]));
-                // TODO 网络请求，签到业务，回调 mView.setResult("");
+                drawRectBySurface(faceInfos);
+                mNetworkHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        // TODO 人脸识别、比对、网络请求，签到业务，回调 mView.setResult("");
+                        nowFaceFeature = mFaceRecognize.recognize(ParseUtil.getPixelsRGBA(bitmap), mTextureView.getWidth(), mTextureView.getHeight(), ParseUtil.getUsefulLandmarksFromFaceInfo(faceInfos[0]));
+                        if (preFaceFeature != null) {
+                            double distance = mFaceRecognize.compare(preFaceFeature, nowFaceFeature);
+                            // 判定为同一个人
+                            if (distance >= PublicConfig.SAME_FACE_THRESHOLD) {
+                                preFaceFeature = nowFaceFeature;
+                                return;
+                            }
+                        }
+                        mModel.selfAttend(mAttendId, ParseUtil.arr2String(nowFaceFeature), new ISelfAttend.Model.SelfAttendCallback() {
+                            @Override
+                            public void onSuccess() {
+                                // TODO 显示结果
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+                        });
+                        preFaceFeature = nowFaceFeature;
+                    }
+                });
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 绘制人脸检测框
+     *
+     * @param faceInfos
+     */
+    private void drawRectBySurface(FaceInfo[] faceInfos) {
+        if (faceInfos == null) {
+            Canvas canvas = mSurfaceHolder.lockCanvas();
+            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR); //清楚掉上一次的画框。
+            mSurfaceHolder.unlockCanvasAndPost(canvas);
+            return;
+        }
+        Canvas canvas = mSurfaceHolder.lockCanvas();
+        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR); //清楚掉上一次的画框。
+        for (int i = 0; i < faceInfos.length; i++) {
+            canvas.drawRect(faceInfos[i].x1, faceInfos[i].y1, faceInfos[i].x2, faceInfos[i].y2, rectPaint);
+            for (int j = 0; j < 5; j++) {
+                canvas.drawCircle(faceInfos[i].keypoints[j][0], faceInfos[i].keypoints[j][1], 6f, pointPaint);
+            }
+        }
+        mSurfaceHolder.unlockCanvasAndPost(canvas);
+        return;
     }
 
     /**

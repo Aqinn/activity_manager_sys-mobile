@@ -106,4 +106,8 @@
     <string name="have_attend">已签到</string>
     <string name="have_not_attend">未签到</string>
     <string name="create_attend">创建签到</string>
+    <string name="good_afternoon">下午好</string>
+    <string name="good_noon">中午好</string>
+    <string name="good_morning">早上好</string>
+    <string name="good_night">晚上好</string>
 </resources>

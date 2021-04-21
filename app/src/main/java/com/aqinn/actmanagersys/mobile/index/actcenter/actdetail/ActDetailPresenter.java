@@ -32,8 +32,10 @@ public class ActDetailPresenter implements IActDetail.Presenter {
     public void createAct(ActShow act, Callback callback) {
         mModel.insertAct(act, new IActDetail.Model.Callback() {
             @Override
-            public void onSuccess(ActShow act) {
-                // TODO 将创建的活动添加到我创建的活动列表中
+            public void onSuccess(ActShow resAct) {
+                act.setActId(resAct.getActId());
+                act.setCode(resAct.getCode());
+                act.setPwd(resAct.getPwd());
                 callback.onSuccess();
             }
 
@@ -48,8 +50,8 @@ public class ActDetailPresenter implements IActDetail.Presenter {
     public void editAct(ActShow act, Callback callback) {
         mModel.updateAct(act, new IActDetail.Model.Callback() {
             @Override
-            public void onSuccess(ActShow act) {
-                // TODO 将修改后的活动状态更新到我创建的活动列表中
+            public void onSuccess(ActShow resAct) {
+                act.copyOther(resAct);
                 callback.onSuccess();
             }
 

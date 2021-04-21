@@ -1,5 +1,7 @@
 package com.aqinn.actmanagersys.mobile.utils;
 
+import com.aqinn.actmanagersys.mobile.model.ActShow;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -12,8 +14,10 @@ import java.util.Locale;
  */
 public class FormatUtil {
 
-    private static final String accountRegExp = "^[a-zA-Z_][0-9a-zA-Z_]{2,19}$";
-    private static final String pwdRegExp = "^[0-9a-zA-Z_]{6,20}$";
+    private static final String ACCOUNT_REG_EXP = "^[a-zA-Z_][0-9a-zA-Z_]{2,19}$";
+    private static final String PWD_REG_EXP = "^[0-9a-zA-Z_]{6,20}$";
+    private static final String ACT_CODE_REG_EXP = "^[0-9]{6}$";
+    private static final String ACT_PWD_REG_EXP = "^[0-9]{6}$";
     private static final String DATE_FORMAT_PATTERN_YMD = "yyyy-MM-dd";
     private static final String DATE_FORMAT_PATTERN_YMD_HM = "yyyy-MM-dd HH:mm";
 
@@ -26,7 +30,7 @@ public class FormatUtil {
     public static boolean verifyAccount(String account) {
         if (account == null || account.isEmpty() || account.contains(" "))
             return false;
-        return account.matches(accountRegExp);
+        return account.matches(ACCOUNT_REG_EXP);
     }
 
     /**
@@ -38,7 +42,7 @@ public class FormatUtil {
     public static boolean verifyPwd(String pwd) {
         if (pwd == null || pwd.isEmpty() || pwd.contains(" "))
             return false;
-        return pwd.matches(pwdRegExp);
+        return pwd.matches(PWD_REG_EXP);
     }
 
     /**
@@ -154,6 +158,46 @@ public class FormatUtil {
         } else {
             return DATE_FORMAT_PATTERN_YMD;
         }
+    }
+
+    /**
+     * 校验活动格式
+     *
+     * @param act
+     * @return
+     */
+    public static boolean verifyAct(ActShow act) {
+        if (act == null)
+            return false;
+        if (FormatUtil.verifyActName(act.getName()) && FormatUtil.verifyActLocation(act.getLocation()) &&
+                FormatUtil.verifyActDesc(act.getDesc()) && FormatUtil.verifyActTime(act.getStartTime(), act.getEndTime())) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 校验活动代码格式
+     *
+     * @param code
+     * @return
+     */
+    public static boolean verifyActCode(String code) {
+        if (code == null || code.isEmpty() || code.contains(" "))
+            return false;
+        return code.matches(ACT_CODE_REG_EXP);
+    }
+
+    /**
+     * 校验活动密码格式
+     *
+     * @param pwd
+     * @return
+     */
+    public static boolean verifyActPwd(String pwd) {
+        if (pwd == null || pwd.isEmpty() || pwd.contains(" "))
+            return false;
+        return pwd.matches(ACT_PWD_REG_EXP);
     }
 
 }

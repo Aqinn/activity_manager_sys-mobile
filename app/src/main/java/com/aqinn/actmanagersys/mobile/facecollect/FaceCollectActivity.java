@@ -139,4 +139,8 @@ public class FaceCollectActivity extends BaseFragmentActivity implements IFaceCo
         return this;
     }
 
+    @Override
+    public void popbackstack() {
+        popBackStack();
+    }
 }

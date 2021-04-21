@@ -22,11 +22,11 @@
 
         <ImageView
             android:id="@+id/iv_label"
-            android:src="@drawable/circle_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:src="@drawable/circle_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_type"
@@ -71,16 +71,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_type" />
 
-        <TextView
-            android:id="@+id/tv_ustatus"
+        <ImageView
+            android:id="@+id/iv_ustatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:text="123"
-            android:textSize="@dimen/status_text_size"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/tv_status"
-            app:layout_constraintStart_toStartOf="@id/tv_status"/>
+            android:src="@mipmap/attend_done"
+            android:layout_marginStart="242dp"
+            android:layout_marginTop="25dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
